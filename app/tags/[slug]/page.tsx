@@ -134,3 +134,13 @@ export default function TagPage({ params }: { params: { slug: string } }) {
     </>
   )
 }
+
+export function generateStaticParams() {
+	return [
+    ...allBlogs,
+    ...allInspirations,
+    ...allPodcasts,
+    ...allResources,
+    ...allTools,
+  ].map((post) => post.tags).flat().map((tag) => ({ slug: tag }));
+}
