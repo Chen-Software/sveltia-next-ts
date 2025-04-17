@@ -10,6 +10,7 @@ const nextconfig = {
   reactStrictMode: true,
   trailingSlash: true,
   output: "standalone",
+  distDir: "build",
   images: {
     loader: "custom",
     imageSizes: [16, 32, 48, 128, 256],
