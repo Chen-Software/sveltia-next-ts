@@ -30,6 +30,9 @@ importers:
         specifier: ^18.2.0
         version: 18.3.1(react@18.3.1)
     devDependencies:
+      '@contentlayer2/client':
+        specifier: ^0.5.7
+        version: 0.5.7(acorn@8.14.1)(esbuild@0.25.2)
       '@types/prismjs':
         specifier: ^1.26.3
         version: 1.26.5
