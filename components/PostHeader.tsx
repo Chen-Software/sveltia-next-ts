@@ -1,5 +1,5 @@
 import Link from "next/link";
-import {
+import type {
 	Blog,
 	Inspiration,
 	Podcasts,

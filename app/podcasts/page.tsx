@@ -1,7 +1,7 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { pick } from "@contentlayer2/client";
 import {
-	Podcasts as PodcastType,
+	type Podcasts as PodcastType,
 	allPodcasts,
 } from "../../.contentlayer/generated";
 import Layout from "../../components/Layout";

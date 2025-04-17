@@ -1,6 +1,6 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { allTools, Tools } from "../../../.contentlayer/generated";
+import { allTools, type Tools } from "../../../.contentlayer/generated";
 import Layout from "../../../components/Layout";
 import PostFooter from "../../../components/PostFooter";
 import PostHeader from "../../../components/PostHeader";

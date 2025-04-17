@@ -5,11 +5,11 @@ import {
 	allPodcasts,
 	allResources,
 	allTools,
-	Blog,
-	Inspiration,
-	Podcasts,
-	Resources,
-	Tools,
+	type Blog,
+	type Inspiration,
+	type Podcasts,
+	type Resources,
+	type Tools,
 } from "../.contentlayer/generated";
 import Tag from "./Tag";
 import { Icon } from "./Icon";

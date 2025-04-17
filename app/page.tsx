@@ -1,11 +1,11 @@
 import { pick } from "contentlayer2/client";
 import Layout from "../components/Layout";
 import {
-	Blog,
-	Inspiration,
-	Podcasts,
-	Resources,
-	Tools,
+	type Blog,
+	type Inspiration,
+	type Podcasts,
+	type Resources,
+	type Tools,
 	allBlogs,
 	allInspirations,
 	allPages,
@@ -18,7 +18,7 @@ import BlogCardPost from "../components/cards/BlogPostCard";
 import InspirationPostCard from "../components/cards/InspirationPostCard";
 import PodcastPostCard from "../components/cards/PodcastPostCard";
 import ToolsPostCard from "../components/cards/ToolsPostCard";
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { Icon } from "../components/Icon";
 import { AUTHOR_NAME, SITE_NAME, SITE_URL } from "../config";
 

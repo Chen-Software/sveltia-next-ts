@@ -1,6 +1,6 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { allPodcasts, Podcasts } from "../../../.contentlayer/generated";
+import { allPodcasts, type Podcasts } from "../../../.contentlayer/generated";
 import Layout from "../../../components/Layout";
 import PostHeader from "../../../components/PostHeader";
 import PostFooter from "../../../components/PostFooter";

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Podcasts } from "../../.contentlayer/generated";
+import type { Podcasts } from "../../.contentlayer/generated";
 import ExportedImage from "next-image-export-optimizer";
 
 const cardClasses =
