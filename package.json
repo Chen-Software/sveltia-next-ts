@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "prepare": "panda codegen",
     "dev": "concurrently \"contentlayer2 dev\" \"next dev\" \"next-image-export-optimizer\"",
     "build": "contentlayer2 build && next build && next-image-export-optimizer",
     "start": "next start",
@@ -18,6 +19,7 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@pandacss/dev": "^0.53.4",
     "@types/prismjs": "^1.26.3",
     "@types/react": "^18.0.17",
     "autoprefixer": "^10.4.19",
