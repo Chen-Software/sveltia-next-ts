@@ -60,3 +60,7 @@ export default function InspirationPage({
     </Layout>
   )
 }
+
+export function generateStaticParams() {
+	return allInspirations.map((inspiration) => ({ slug: inspiration.slug }));
+}

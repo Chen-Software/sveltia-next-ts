@@ -63,3 +63,7 @@ export default function ToolPage({ params }: { params: { slug: string } }) {
     </Layout>
   )
 }
+
+export function generateStaticParams() {
+	return allTools.map((tool) => ({ slug: tool.slug }));
+}
