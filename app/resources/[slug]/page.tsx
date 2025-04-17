@@ -75,7 +75,7 @@ export default function ResourcePage({ params }: { params: { slug: string } }) {
 				<div
 					className="blog-post"
 					dangerouslySetInnerHTML={{ __html: resource.body.html }}
-				></div>
+				/>
 				<PostFooter data={resource} />
 			</article>
 		</Layout>

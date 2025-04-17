@@ -48,7 +48,8 @@ export default function BlogPage({ params }: { params: { page: string } }) {
 
 	// Group blogs by year
 	const groupedBlogs = blogs.reduce((acc: Record<string, Blog[]>, blog) => {
-		const year = new Date(blog.date!).getFullYear().toString();
+		const year =
+			(blog.date && new Date(blog.date).getFullYear().toString()) || "unknown";
 		if (!acc[year]) acc[year] = [];
 		acc[year].push(blog as Blog);
 		return acc;

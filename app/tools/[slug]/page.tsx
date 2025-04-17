@@ -57,7 +57,7 @@ export default function ToolPage({ params }: { params: { slug: string } }) {
 				<div
 					className="blog-post mt-12"
 					dangerouslySetInnerHTML={{ __html: tool.body.html }}
-				></div>
+				/>
 				<PostFooter data={tool} />
 			</article>
 		</Layout>

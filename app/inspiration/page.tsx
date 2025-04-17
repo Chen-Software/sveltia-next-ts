@@ -58,7 +58,7 @@ export default function InspirationPage() {
 			<section className="md:max-w-[87%] m-auto flex flex-col gap-6 px-4 sm:px-12 mb-32">
 				<CategoryHeader
 					title="Inspiration"
-					templateKey={inspirations[0].templateKey!}
+					templateKey={inspirations[0]?.templateKey || ""}
 				/>
 
 				<div className="grid lg:grid-cols-2 gap-4 w-full justify-center">

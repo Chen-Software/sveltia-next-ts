@@ -37,9 +37,11 @@ export default function About() {
 			<section className="flex flex-col gap-12 my-24 mx-auto max-w-5xl text-center">
 				<h1 className="text-3xl font-bold">{about?.title}</h1>
 				<div className="flex flex-col gap-8">
-					<ReactMarkdown remarkPlugins={[gfm]} children={about?.description} />
+					<ReactMarkdown remarkPlugins={[gfm]}>
+						{about?.description}
+					</ReactMarkdown>
 				</div>
-				<div className="flex flex-wrap justify-center gap-2"></div>
+				<div className="flex flex-wrap justify-center gap-2" />
 			</section>
 		</Layout>
 	);

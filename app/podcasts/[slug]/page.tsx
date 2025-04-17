@@ -78,7 +78,7 @@ export default function PodcastPage({ params }: { params: { slug: string } }) {
 				<div
 					className="blog-post"
 					dangerouslySetInnerHTML={{ __html: podcast.body.html }}
-				></div>
+				/>
 				<PostFooter data={podcast} />
 			</article>
 		</Layout>

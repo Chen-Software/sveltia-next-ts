@@ -58,7 +58,7 @@ export default function Resources() {
 			<section className="max-w-2xl m-auto flex flex-col gap-6 px-4 sm:px-12 mb-32">
 				<CategoryHeader
 					title="Resources"
-					templateKey={resources[0].templateKey!}
+					templateKey={resources[0]?.templateKey || ""}
 				/>
 
 				<div className="flex flex-wrap gap-4 w-full">
