@@ -19,6 +19,7 @@
   },
   "devDependencies": {
     "@contentlayer2/client": "^0.5.7",
+    "@types/mdx": "^2.0.13",
     "@types/prismjs": "^1.26.3",
     "@types/react": "^18.0.17",
     "autoprefixer": "^10.4.19",
