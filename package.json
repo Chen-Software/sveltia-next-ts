@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "format": "npx @biomejs/biome format --write ./app",
+    "lint:biome": "npx @biomejs/biome lint --write ./app",
+    "lint:next": "next lint",
+    "lint": "npm run lint:biome && npm run lint:next",
     "dev": "concurrently \"contentlayer2 dev\" \"next dev\" \"next-image-export-optimizer\"",
     "build": "contentlayer2 build && next build && next-image-export-optimizer",
     "start": "next start",
