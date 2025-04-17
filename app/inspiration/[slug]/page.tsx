@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { allInspirations, type Inspiration } from "../../../.contentlayer/generated";
+import {
+	allInspirations,
+	type Inspiration,
+} from "../../../.contentlayer/generated";
 
 import Layout from "../../../components/Layout";
 import InspirationPost from "../../../components/InspirationPost";

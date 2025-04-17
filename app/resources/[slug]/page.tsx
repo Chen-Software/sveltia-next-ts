@@ -62,7 +62,8 @@ export default function ResourcePage({ params }: { params: { slug: string } }) {
 					<a
 						href={resource.link}
 						target="_blank"
-						title={`Open resource on a new tab`} rel="noreferrer"
+						title={"Open resource on a new tab"}
+						rel="noreferrer"
 					>
 						<img
 							src={resource.image}
