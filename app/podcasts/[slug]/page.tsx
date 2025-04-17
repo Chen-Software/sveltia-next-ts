@@ -82,3 +82,7 @@ export default function PodcastPage({ params }: { params: { slug: string } }) {
     </Layout>
   )
 }
+
+export function generateStaticParams() {
+	return allPodcasts.map((podcast) => ({ slug: podcast.slug }));
+}

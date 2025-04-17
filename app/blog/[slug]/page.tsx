@@ -54,3 +54,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
     </Layout>
   )
 }
+
+export function generateStaticParams() {
+	return allBlogs.map((blog) => ({ slug: blog.slug }));
+}
