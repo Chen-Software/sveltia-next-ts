@@ -1,5 +1,6 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: Chen-Software/decap-tailwind-next-ts
   branch: main
 
 # local_backend: true
