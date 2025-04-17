@@ -80,3 +80,7 @@ export default function ResourcePage({ params }: { params: { slug: string } }) {
     </Layout>
   )
 }
+
+export function generateStaticParams() {
+	return allResources.map((resource) => ({ slug: resource.slug }));
+}
