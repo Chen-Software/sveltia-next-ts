@@ -17,16 +17,19 @@ export const Pagination = forwardRef<HTMLElement, PaginationProps>(
 				</StyledPagination.PrevTrigger>
 				<StyledPagination.Context>
 					{(pagination) =>
-						pagination.pages.map((page, index) =>
-							page.type === "page" ? (
-								<StyledPagination.Item key={index} {...page} asChild>
-									<Button variant="outline">{page.value}</Button>
-								</StyledPagination.Item>
-							) : (
-								<StyledPagination.Ellipsis key={index} index={index}>
-									&#8230;
-								</StyledPagination.Ellipsis>
-							),
+						pagination.pages.map(
+							(page: { type: string; value?: number }, index: number) =>
+								page.type === "page" ? (
+									<StyledPagination.Item key={index} {...page} asChild>
+										<Button variant="outline" value={page.value}>
+											{page.value}
+										</Button>
+									</StyledPagination.Item>
+								) : (
+									<StyledPagination.Ellipsis key={index} index={index}>
+										&#8230;
+									</StyledPagination.Ellipsis>
+								),
 						)
 					}
 				</StyledPagination.Context>
