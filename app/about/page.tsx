@@ -1,5 +1,5 @@
-import { Metadata } from "next";
-import { allPages, Page } from "../../.contentlayer/generated";
+import type { Metadata } from "next";
+import { allPages, type Page } from "../../.contentlayer/generated";
 import Layout from "../../components/Layout";
 import ReactMarkdown from "react-markdown";
 import gfm from "remark-gfm";

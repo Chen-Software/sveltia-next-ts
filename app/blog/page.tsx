@@ -1,5 +1,5 @@
-import { Metadata } from "next";
-import { allBlogs, Blog } from "../../.contentlayer/generated";
+import type { Metadata } from "next";
+import { allBlogs, type Blog } from "../../.contentlayer/generated";
 import { pick } from "@contentlayer2/client";
 import { sortByDate } from "../../utils";
 import { extractUniqueTags } from "../../utils/tags";
@@ -38,7 +38,7 @@ export function generateMetadata(): Metadata {
 }
 
 export default function BlogPage({ params }: { params: { page: string } }) {
-	const currentPage = parseInt(params.page || "1", 10);
+	const currentPage = Number.parseInt(params.page || "1", 10);
 
 	// Pick relevant fields from blogs and sort by date
 	let blogs = allBlogs.map((blog) =>
@@ -64,7 +64,7 @@ export default function BlogPage({ params }: { params: { page: string } }) {
 				<div className="flex gap-8 items-start">
 					<div className="flex flex-wrap gap-4 w-full">
 						{Object.keys(groupedBlogs)
-							.sort((a, b) => parseInt(b) - parseInt(a))
+							.sort((a, b) => Number.parseInt(b) - Number.parseInt(a))
 							.map((year) => (
 								<div key={year}>
 									<h2 className="text-2xl mb-8 text-slate-700 dark:text-slate-300">

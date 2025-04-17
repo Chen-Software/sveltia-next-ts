@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 function Pagnation({ totalPostCount }: { totalPostCount: number }) {
-	let router = useRouter();
+	const router = useRouter();
 
 	/*
    pages give number,base on number we create a array. base on array we map a list elements
@@ -13,7 +13,7 @@ function Pagnation({ totalPostCount }: { totalPostCount: number }) {
    
   */
 
-	let pageIntoArray = Array.from(Array(totalPostCount).keys());
+	const pageIntoArray = Array.from(Array(totalPostCount).keys());
 
 	return (
 		<nav aria-label=" my-6">

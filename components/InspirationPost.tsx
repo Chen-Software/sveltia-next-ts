@@ -1,7 +1,7 @@
 "use client"; // Marks this as a client component
 
 import Link from "next/link";
-import { Inspiration } from "../.contentlayer/generated";
+import type { Inspiration } from "../.contentlayer/generated";
 import { useMDXComponent } from "next-contentlayer2/hooks";
 import PostHeader from "./PostHeader";
 import PostFooter from "./PostFooter";

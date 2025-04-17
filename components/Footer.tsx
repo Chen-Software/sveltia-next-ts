@@ -3,7 +3,7 @@ import { Icon } from "./Icon";
 export default function Footer() {
 	let currentYear = new Date().getFullYear();
 	// get last 2 digits of the currentYear
-	currentYear = parseInt(currentYear.toString().substr(-2));
+	currentYear = Number.parseInt(currentYear.toString().substr(-2));
 
 	return (
 		<footer className="p-4 sm:p-6 bg-slate-200 dark:bg-slate-800">

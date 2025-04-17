@@ -1,6 +1,6 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { allBlogs, Blog } from "../../../.contentlayer/generated";
+import { allBlogs, type Blog } from "../../../.contentlayer/generated";
 import Layout from "../../../components/Layout";
 import BlogPost from "../../../components/BlogPost";
 import { AUTHOR_NAME, SITE_NAME, SITE_URL } from "../../../config";

@@ -1,12 +1,12 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import Link from "next/link";
 
 import {
-	Blog,
-	Inspiration,
-	Podcasts,
-	Resources,
-	Tools,
+	type Blog,
+	type Inspiration,
+	type Podcasts,
+	type Resources,
+	type Tools,
 	allBlogs,
 	allInspirations,
 	allPodcasts,
@@ -143,7 +143,6 @@ export function generateStaticParams() {
 		...allResources,
 		...allTools,
 	]
-		.map((post) => post.tags)
-		.flat()
+		.flatMap((post) => post.tags)
 		.map((tag) => ({ slug: tag }));
 }

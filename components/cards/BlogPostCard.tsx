@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Blog } from "../../.contentlayer/generated";
+import type { Blog } from "../../.contentlayer/generated";
 
 const cardClasses =
 	"px-4 py-4 w-full flex flex-col gap-6 bg-white dark:bg-slate-800 rounded-xl shadow-md hover:shadow-xl dark:hover:shadow-2xl hover:dark:bg-slate-700 transition-shadow dark:transition-colors";

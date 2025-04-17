@@ -9,7 +9,7 @@ import "prismjs/components/prism-jsx";
 import "prismjs/components/prism-php";
 import "prismjs/components/prism-pug";
 import "prismjs/components/prism-markup-templating";
-import { Blog } from "../.contentlayer/generated";
+import type { Blog } from "../.contentlayer/generated";
 import PostHeader from "./PostHeader";
 import PostFooter from "./PostFooter";
 

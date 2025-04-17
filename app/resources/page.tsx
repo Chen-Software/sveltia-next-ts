@@ -1,7 +1,7 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { pick } from "@contentlayer2/client";
 import {
-	Resources as ResourceType,
+	type Resources as ResourceType,
 	allResources,
 } from "../../.contentlayer/generated";
 import Layout from "../../components/Layout";

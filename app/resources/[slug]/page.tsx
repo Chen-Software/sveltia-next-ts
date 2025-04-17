@@ -1,6 +1,6 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Resources, allResources } from "../../../.contentlayer/generated";
+import { type Resources, allResources } from "../../../.contentlayer/generated";
 import Layout from "../../../components/Layout";
 import PostFooter from "../../../components/PostFooter";
 import PostHeader from "../../../components/PostHeader";
@@ -62,7 +62,7 @@ export default function ResourcePage({ params }: { params: { slug: string } }) {
 					<a
 						href={resource.link}
 						target="_blank"
-						title={`Open resource on a new tab`}
+						title={`Open resource on a new tab`} rel="noreferrer"
 					>
 						<img
 							src={resource.image}

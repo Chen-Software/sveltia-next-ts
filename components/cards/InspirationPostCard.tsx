@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Inspiration } from "../../.contentlayer/generated";
+import type { Inspiration } from "../../.contentlayer/generated";
 import ExportedImage from "next-image-export-optimizer";
 
 const InspirationCardClasses =

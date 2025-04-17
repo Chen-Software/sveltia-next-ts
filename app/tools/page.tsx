@@ -1,6 +1,6 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { pick } from "@contentlayer2/client";
-import { Tools as ToolsType, allTools } from "../../.contentlayer/generated";
+import { type Tools as ToolsType, allTools } from "../../.contentlayer/generated";
 import Layout from "../../components/Layout";
 import ToolsPostCard from "../../components/cards/ToolsPostCard";
 import CategoryHeader from "../../components/CategoryHeader";
