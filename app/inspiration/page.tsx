@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
-import { type Inspiration, allInspirations } from "../../.contentlayer/generated";
+import {
+	type Inspiration,
+	allInspirations,
+} from "../../.contentlayer/generated";
 import { pick } from "@contentlayer2/client";
 import Layout from "../../components/Layout";
 import InspirationPostCard from "../../components/cards/InspirationPostCard";
