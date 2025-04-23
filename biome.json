@@ -4,29 +4,5 @@
 		"clientKind": "git",
 		"useIgnoreFile": true,
 		"defaultBranch": "main"
-	},
-	"formatter": {
-		"enabled": true,
-		"useEditorconfig": true,
-		"formatWithErrors": false,
-		"indentStyle": "space",
-		"indentWidth": 2,
-		"lineEnding": "lf",
-		"lineWidth": 80,
-		"attributePosition": "auto",
-		"bracketSpacing": true
-	},
-	"javascript": {
-		"formatter": {
-			"jsxQuoteStyle": "double",
-			"quoteProperties": "asNeeded",
-			"trailingCommas": "es5",
-			"semicolons": "asNeeded",
-			"arrowParentheses": "always",
-			"bracketSameLine": false,
-			"quoteStyle": "single",
-			"attributePosition": "auto",
-			"bracketSpacing": true
-		}
 	}
 }
