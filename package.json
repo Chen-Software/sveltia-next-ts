@@ -5,9 +5,7 @@
 	"scripts": {
 		"check": "npx @biomejs/biome check --changed --since=main --fix",
 		"format": "npx @biomejs/biome format --changed --since=main --write",
-		"lint:biome": "npx @biomejs/biome lint --changed --since=main --fix",
-		"lint:next": "next lint",
-		"lint": "npm run lint:biome && npm run lint:next",
+		"lint": "npx @biomejs/biome lint --changed --since=main --fix",
 		"dev": "concurrently \"contentlayer2 dev\" \"next dev\" \"next-image-export-optimizer\"",
 		"build": "contentlayer2 build && next build && next-image-export-optimizer",
 		"start": "next start",
