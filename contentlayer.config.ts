@@ -2,7 +2,7 @@ import { defineDocumentType, makeSource } from "contentlayer2/source-files";
 
 const Page = defineDocumentType(() => ({
 	name: "Page",
-	filePathPattern: `page/*.md`,
+	filePathPattern: "page/*.md",
 	contentType: "markdown",
 	fields: {
 		slug: {
@@ -31,7 +31,7 @@ const Page = defineDocumentType(() => ({
 
 const Blog = defineDocumentType(() => ({
 	name: "Blog",
-	filePathPattern: `blog/*.md`,
+	filePathPattern: "blog/*.md",
 	contentType: "markdown",
 	fields: {
 		title: {
@@ -69,7 +69,7 @@ const Blog = defineDocumentType(() => ({
 
 const Inspiration = defineDocumentType(() => ({
 	name: "Inspiration",
-	filePathPattern: `inspiration/*.mdx`,
+	filePathPattern: "inspiration/*.mdx",
 	contentType: "mdx",
 	fields: {
 		title: {
@@ -111,7 +111,7 @@ const Inspiration = defineDocumentType(() => ({
 
 const Podcasts = defineDocumentType(() => ({
 	name: "Podcasts",
-	filePathPattern: `podcasts/*.md`,
+	filePathPattern: "podcasts/*.md",
 	contentType: "markdown",
 	fields: {
 		title: {
@@ -157,7 +157,7 @@ const Podcasts = defineDocumentType(() => ({
 
 const Tools = defineDocumentType(() => ({
 	name: "Tools",
-	filePathPattern: `tools/*.md`,
+	filePathPattern: "tools/*.md",
 	contentType: "markdown",
 	fields: {
 		title: {
@@ -203,7 +203,7 @@ const Tools = defineDocumentType(() => ({
 
 const Resources = defineDocumentType(() => ({
 	name: "Resources",
-	filePathPattern: `resources/*.md`,
+	filePathPattern: "resources/*.md",
 	contentType: "markdown",
 	fields: {
 		title: {

@@ -8,7 +8,7 @@ export default function Video({ src }: { src: string }) {
 				disablePictureInPicture
 				controlsList="nodownload noremoteplayback noplaybackrate"
 				className="w-full bg-slate-500"
-			></video>
+			/>
 		</p>
 	);
 }

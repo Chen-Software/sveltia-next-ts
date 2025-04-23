@@ -10,7 +10,7 @@ export default function InspirationPostCard({ post }: { post: Inspiration }) {
 		<Link
 			key={post.slug}
 			href={`/inspiration/${post.slug}/`}
-			className={InspirationCardClasses + " p-0 group overflow-hidden"}
+			className={`${InspirationCardClasses} p-0 group overflow-hidden`}
 		>
 			<figure className="overflow-hidden bg-slate-200 dark:bg-slate-700">
 				<ExportedImage

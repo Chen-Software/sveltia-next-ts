@@ -10,7 +10,7 @@ export default function ToolsPostCard({ post }: { post: Tools }) {
 		<Link
 			key={post.slug}
 			href={`/tools/${post.slug}/`}
-			className={cardClasses + " items-center group overflow-hidden"}
+			className={`${cardClasses} items-center group overflow-hidden`}
 		>
 			<figure className="overflow-hidden size-16 sm:size-24 shrink-0 rounded-xl shadow-lg bg-slate-200 dark:bg-slate-700">
 				<ExportedImage
