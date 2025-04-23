@@ -24,7 +24,7 @@ export default function PostHeader({
 				<div className="flex gap-4 items-center text-xs sm:text-base">
 					<Link href={`/${data.templateKey}`} className="rounded-lg">
 						<span className="flex gap-2 items-center px-3 py-2 rounded-lg text-slate-100 dark:text-slate-800 bg-slate-700 dark:bg-slate-200 hover:underline">
-							<Icon name={data.templateKey!} className="size-4" />
+							<Icon name={data.templateKey} className="size-4" />
 							<span className="font-semibold sm:text-sm">
 								{data.templateKey &&
 									data.templateKey.charAt(0).toUpperCase() +
@@ -38,10 +38,12 @@ export default function PostHeader({
 							<Link href={"/about/"} className="font-semibold hover:underline">
 								{AUTHOR_NAME}
 							</Link>{" "}
-							<span className="inline-flex">
-								{" "}
-								on {`${formatDate(new Date(data.date as any))}`}
-							</span>
+							{data.date && (
+								<span className="inline-flex">
+									{" "}
+									on {`${formatDate(new Date(data.date))}`}
+								</span>
+							)}
 						</small>
 					</p>
 				</div>
