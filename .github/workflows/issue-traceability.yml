@@ -86,24 +86,37 @@ jobs:
 
       - name: Calculate Issue Traceability
         id: traceability_report
+        env:
+          # Make repository name available to pass to the script
+          REPO_NAME: ${{ github.event.repository.name }}
         run: |
           total_commits=$(git rev-list --count HEAD)
           # Make grep more specific to the start of the line for accuracy
           issue_commits=$(git log --format=%B HEAD | grep -cE '^\- Issue: https://git\.chen\.so/')
-          report="No traceability report generated."
-          if [ "$total_commits" -eq 0 ]; then
-            report="No commits found in the repository."
-          else
-            # Use awk for safer division by zero handling and formatting
-            percentage=$(awk -v ic="$issue_commits" -v tc="$total_commits" 'BEGIN { if (tc > 0) { printf "%.2f", (ic/tc)*100 } else { print "0.00" } }')
-            report="**Issue Traceability Report** 📈\n\n$issue_commits out of $total_commits commits ($percentage%) reference a Radicle issue."
+
+          # Make the report generation script executable
+          chmod +x .github/scripts/issue-traceability-generate-report.sh
+
+          # Run the script and capture its output
+          report_output=$(.github/scripts/issue-traceability-generate-report.sh "$total_commits" "$issue_commits" "$REPO_NAME")
+
+          # Check if the script executed successfully
+          if [ $? -ne 0 ]; then
+            echo "::error::Report generation script failed."
+            # Output a fallback message
+            echo "report_message=Failed to generate traceability report." >> $GITHUB_OUTPUT
+            exit 1
           fi
-          # Output the report string for the next step
+
+          # Output the captured report for the next step using multi-line syntax
           echo "report_message<<EOF" >> $GITHUB_OUTPUT
-          echo "$report" >> $GITHUB_OUTPUT
+          echo "$report_output" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
-          # Also print to logs
-          echo "$report"
+
+          # Also print to logs for debugging
+          echo "--- Generated Report ---"
+          echo "$report_output"
+          echo "------------------------"
         shell: bash
 
       - name: Find Existing Comment
