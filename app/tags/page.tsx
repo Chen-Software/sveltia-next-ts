@@ -6,11 +6,11 @@ import {
 	allResources,
 	allTools,
 } from "../../.contentlayer/generated";
+import CategoryHeader from "../../components/CategoryHeader";
 import Layout from "../../components/Layout";
 import Tag from "../../components/Tag";
-import { extractUniqueTags } from "../../utils/tags";
-import CategoryHeader from "../../components/CategoryHeader";
 import { SITE_NAME, SITE_URL } from "../../config";
+import { extractUniqueTags } from "../../utils/tags";
 
 // Metadata function for SEO
 export function generateMetadata(): Metadata {

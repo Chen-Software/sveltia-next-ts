@@ -1,12 +1,12 @@
-import type { Metadata } from "next";
-import { allBlogs, type Blog } from "../../.contentlayer/generated";
 import { pick } from "@contentlayer2/client";
-import { sortByDate } from "../../utils";
-import { extractUniqueTags } from "../../utils/tags";
-import Layout from "../../components/Layout";
+import type { Metadata } from "next";
+import { type Blog, allBlogs } from "../../.contentlayer/generated";
 import CategoryHeader from "../../components/CategoryHeader";
+import Layout from "../../components/Layout";
 import BlogPostCard from "../../components/cards/BlogPostCard";
 import { SITE_NAME, SITE_URL } from "../../config";
+import { sortByDate } from "../../utils";
+import { extractUniqueTags } from "../../utils/tags";
 
 export function generateMetadata(): Metadata {
 	const SEO = {

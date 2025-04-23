@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import {
-	allInspirations,
 	type Inspiration,
+	allInspirations,
 } from "../../../.contentlayer/generated";
 
-import Layout from "../../../components/Layout";
 import InspirationPost from "../../../components/InspirationPost";
+import Layout from "../../../components/Layout";
 import { AUTHOR_NAME, SITE_NAME, SITE_URL } from "../../../config";
 
 // Metadata function for SEO

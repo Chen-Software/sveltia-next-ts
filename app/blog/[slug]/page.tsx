@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { allBlogs, type Blog } from "../../../.contentlayer/generated";
-import Layout from "../../../components/Layout";
+import { type Blog, allBlogs } from "../../../.contentlayer/generated";
 import BlogPost from "../../../components/BlogPost";
+import Layout from "../../../components/Layout";
 import { AUTHOR_NAME, SITE_NAME, SITE_URL } from "../../../config";
 
 export async function generateMetadata({

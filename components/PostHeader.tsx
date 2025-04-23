@@ -6,9 +6,9 @@ import type {
 	Resources,
 	Tools,
 } from "../.contentlayer/generated";
+import { AUTHOR_NAME } from "../config";
 import { formatDate } from "../utils";
 import { Icon } from "./Icon";
-import { AUTHOR_NAME } from "../config";
 
 export default function PostHeader({
 	data,

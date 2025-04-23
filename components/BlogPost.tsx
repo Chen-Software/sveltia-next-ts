@@ -1,7 +1,7 @@
 "use client"; // Marks this as a client component
 
-import { useEffect } from "react";
 import Prism from "prismjs";
+import { useEffect } from "react";
 import "prismjs/components/prism-bash";
 import "prismjs/components/prism-css";
 import "prismjs/components/prism-javascript";
@@ -10,8 +10,8 @@ import "prismjs/components/prism-php";
 import "prismjs/components/prism-pug";
 import "prismjs/components/prism-markup-templating";
 import type { Blog } from "../.contentlayer/generated";
-import PostHeader from "./PostHeader";
 import PostFooter from "./PostFooter";
+import PostHeader from "./PostHeader";
 
 export default function BlogPost({ blog }: { blog: Blog }) {
 	useEffect(() => {

@@ -1,12 +1,12 @@
-import type { Metadata } from "next";
 import { pick } from "@contentlayer2/client";
+import type { Metadata } from "next";
 import {
 	type Tools as ToolsType,
 	allTools,
 } from "../../.contentlayer/generated";
+import CategoryHeader from "../../components/CategoryHeader";
 import Layout from "../../components/Layout";
 import ToolsPostCard from "../../components/cards/ToolsPostCard";
-import CategoryHeader from "../../components/CategoryHeader";
 import { AUTHOR_NAME, SITE_NAME, SITE_URL } from "../../config";
 
 // Metadata function for SEO

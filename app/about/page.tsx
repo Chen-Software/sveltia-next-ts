@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { allPages, type Page } from "../../.contentlayer/generated";
-import Layout from "../../components/Layout";
 import ReactMarkdown from "react-markdown";
 import gfm from "remark-gfm";
+import { type Page, allPages } from "../../.contentlayer/generated";
+import Layout from "../../components/Layout";
 import { AUTHOR_NAME, SITE_NAME, SITE_URL } from "../../config";
 
 // Get page data

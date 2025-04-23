@@ -1,5 +1,6 @@
 import { pick } from "contentlayer2/client";
-import Layout from "../components/Layout";
+import type { Metadata } from "next";
+import Link from "next/link";
 import {
 	type Blog,
 	type Inspiration,
@@ -13,13 +14,12 @@ import {
 	allResources,
 	allTools,
 } from "../.contentlayer/generated";
-import Link from "next/link";
+import { Icon } from "../components/Icon";
+import Layout from "../components/Layout";
 import BlogCardPost from "../components/cards/BlogPostCard";
 import InspirationPostCard from "../components/cards/InspirationPostCard";
 import PodcastPostCard from "../components/cards/PodcastPostCard";
 import ToolsPostCard from "../components/cards/ToolsPostCard";
-import type { Metadata } from "next";
-import { Icon } from "../components/Icon";
 import { AUTHOR_NAME, SITE_NAME, SITE_URL } from "../config";
 
 // Get page data

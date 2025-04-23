@@ -4,7 +4,7 @@ import { type Resources, allResources } from "../../../.contentlayer/generated";
 import Layout from "../../../components/Layout";
 import PostFooter from "../../../components/PostFooter";
 import PostHeader from "../../../components/PostHeader";
-import { SITE_URL, SITE_NAME, AUTHOR_NAME } from "../../../config";
+import { AUTHOR_NAME, SITE_NAME, SITE_URL } from "../../../config";
 
 // Metadata function for SEO
 export async function generateMetadata({

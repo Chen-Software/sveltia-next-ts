@@ -1,18 +1,18 @@
 import Link from "next/link";
 import {
-	allBlogs,
-	allInspirations,
-	allPodcasts,
-	allResources,
-	allTools,
 	type Blog,
 	type Inspiration,
 	type Podcasts,
 	type Resources,
 	type Tools,
+	allBlogs,
+	allInspirations,
+	allPodcasts,
+	allResources,
+	allTools,
 } from "../.contentlayer/generated";
-import Tag from "./Tag";
 import { Icon } from "./Icon";
+import Tag from "./Tag";
 
 export default function PostFooter({
 	data,

@@ -1,12 +1,12 @@
 "use client"; // Marks this as a client component
 
+import type { MDXComponents } from "mdx/types";
+import { useMDXComponent } from "next-contentlayer2/hooks";
 import Link from "next/link";
 import type { Inspiration } from "../.contentlayer/generated";
-import { useMDXComponent } from "next-contentlayer2/hooks";
-import PostHeader from "./PostHeader";
-import PostFooter from "./PostFooter";
 import Video from ".//Video";
-import type { MDXComponents } from "mdx/types";
+import PostFooter from "./PostFooter";
+import PostHeader from "./PostHeader";
 
 export default function InspirationPost({
 	inspiration,

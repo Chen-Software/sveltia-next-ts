@@ -3,9 +3,9 @@
 import "../styles/index.css";
 import "../styles/prism-a11y-dark.css";
 
-import Header from "../components/Header";
-import Footer from "../components/Footer";
 import { AnimatePresence } from "framer-motion";
+import Footer from "../components/Footer";
+import Header from "../components/Header";
 import NetlifyIdentityRedirect from "../components/NetlifyIdentityRedirect";
 
 export default function RootLayout({

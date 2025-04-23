@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
-import { allPodcasts, type Podcasts } from "../../../.contentlayer/generated";
-import Layout from "../../../components/Layout";
-import PostHeader from "../../../components/PostHeader";
-import PostFooter from "../../../components/PostFooter";
-import { SITE_URL, SITE_NAME, AUTHOR_NAME } from "../../../config";
 import ExportedImage from "next-image-export-optimizer";
 import Link from "next/link";
+import { notFound } from "next/navigation";
+import { type Podcasts, allPodcasts } from "../../../.contentlayer/generated";
+import Layout from "../../../components/Layout";
+import PostFooter from "../../../components/PostFooter";
+import PostHeader from "../../../components/PostHeader";
+import { AUTHOR_NAME, SITE_NAME, SITE_URL } from "../../../config";
 
 // Metadata function for SEO
 export async function generateMetadata({

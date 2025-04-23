@@ -1,12 +1,12 @@
-import type { Metadata } from "next";
 import { pick } from "@contentlayer2/client";
+import type { Metadata } from "next";
 import {
 	type Podcasts as PodcastType,
 	allPodcasts,
 } from "../../.contentlayer/generated";
+import CategoryHeader from "../../components/CategoryHeader";
 import Layout from "../../components/Layout";
 import PodcastPostCard from "../../components/cards/PodcastPostCard";
-import CategoryHeader from "../../components/CategoryHeader";
 import { AUTHOR_NAME, SITE_NAME, SITE_URL } from "../../config";
 
 // Metadata function for SEO

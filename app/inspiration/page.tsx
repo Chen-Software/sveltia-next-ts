@@ -1,12 +1,12 @@
+import { pick } from "@contentlayer2/client";
 import type { Metadata } from "next";
 import {
 	type Inspiration,
 	allInspirations,
 } from "../../.contentlayer/generated";
-import { pick } from "@contentlayer2/client";
+import CategoryHeader from "../../components/CategoryHeader";
 import Layout from "../../components/Layout";
 import InspirationPostCard from "../../components/cards/InspirationPostCard";
-import CategoryHeader from "../../components/CategoryHeader";
 import { AUTHOR_NAME, SITE_NAME, SITE_URL } from "../../config";
 
 // Metadata function for SEO

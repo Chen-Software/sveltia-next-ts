@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import ExportedImage from "next-image-export-optimizer";
 import {
 	type Blog,
 	type Inspiration,
@@ -13,9 +14,8 @@ import {
 	allResources,
 	allTools,
 } from "../../../.contentlayer/generated";
-import Layout from "../../../components/Layout";
-import ExportedImage from "next-image-export-optimizer";
 import { Icon } from "../../../components/Icon";
+import Layout from "../../../components/Layout";
 import { AUTHOR_NAME, SITE_NAME, SITE_URL } from "../../../config";
 
 // Metadata function for SEO
