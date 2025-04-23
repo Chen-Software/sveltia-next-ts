@@ -52,6 +52,8 @@ export async function generateMetadata({
 	};
 }
 
+export type Post = Blog | Inspiration | Podcasts | Resources | Tools;
+
 export default function TagPage({ params }: { params: { slug: string } }) {
 	const allPosts = [
 		...allBlogs,
@@ -77,13 +79,8 @@ export default function TagPage({ params }: { params: { slug: string } }) {
 
 					<main className="w-full flex flex-col gap-4">
 						{(
-							posts as
-								| Blog[]
-								| Inspiration[]
-								| Podcasts[]
-								| Resources[]
-								| Tools[]
-						).map((post: any) => {
+							posts as Post[]
+						).map((post: Post) => {
 							return (
 								<div key={post.slug}>
 									<Link
