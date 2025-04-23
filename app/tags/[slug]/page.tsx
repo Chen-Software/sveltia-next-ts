@@ -78,9 +78,7 @@ export default function TagPage({ params }: { params: { slug: string } }) {
 					</header>
 
 					<main className="w-full flex flex-col gap-4">
-						{(
-							posts as Post[]
-						).map((post: Post) => {
+						{(posts as Post[]).map((post: Post) => {
 							return (
 								<div key={post.slug}>
 									<Link
