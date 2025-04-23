@@ -1,0 +1,123 @@
+name: Issue Traceability
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+jobs:
+  annotate-commits:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Ensures full history for commit rewriting
+
+      - name: Retrieve Radicle Issue ID from PR Body
+        id: extract_issue
+        run: |
+          PR_BODY='${{ github.event.pull_request.body }}'
+          
+          # Try different formats for finding the issue ID
+          
+          # 1. Try to extract from a full URL
+          ISSUE_ID=$(echo "$PR_BODY" | grep -Eo 'https://git\.chen\.so/[^/]+/i/[0-9a-f]{40}' | sed -E 's#.*/i/##' | head -n1)
+          
+          # 2. If not found, look for a standalone 40-character SHA (this is the direct issue ID)
+          if [ -z "$ISSUE_ID" ]; then
+            ISSUE_ID=$(echo "$PR_BODY" | grep -Eo '\b[0-9a-f]{40}\b' | head -n1)
+          fi
+
+          # If still not found, exit with an error
+          if [ -z "$ISSUE_ID" ]; then
+            echo "No issue reference found in PR body."
+            exit 1
+          fi
+
+          echo "ISSUE_ID=$ISSUE_ID" >> $GITHUB_ENV
+          echo "Found Issue ID: $ISSUE_ID"
+        shell: bash
+
+      - name: Amend Commit Messages with Radicle Issue Link
+        env:
+          REPO_NAME: ${{ github.event.repository.name }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          # --- Safety Checks ---
+          # Ensure ISSUE_ID environment variable is set
+          if [ -z "$ISSUE_ID" ]; then
+            echo "::error::ISSUE_ID environment variable is not set. Cannot amend commits."
+            exit 1
+          fi
+          # Ensure REPO_NAME environment variable is set
+          if [ -z "$REPO_NAME" ]; then
+            echo "::error::REPO_NAME environment variable is not set. Cannot amend commits."
+            exit 1
+          fi
+          # Ensure BASE_SHA environment variable is set
+          if [ -z "$BASE_SHA" ]; then
+            echo "::error::BASE_SHA environment variable is not set. Cannot amend commits."
+            exit 1
+          fi
+
+          # --- Git Configuration ---
+          # Configure Git user for the changes made by this action
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions+bot+users.noreply@chen.software"
+
+          # --- Amend Logic ---
+          # Construct the full Radicle issue URL
+          ISSUE_URL="https://git.chen.so/${REPO_NAME}/i/${ISSUE_ID}"
+
+          # Make the script executable
+          chmod +x .github/scripts/issue-traceability-amend-commit-msg.sh
+
+          # Execute the script, passing required variables
+          ISSUE_URL="$ISSUE_URL" BASE_SHA="$BASE_SHA" .github/scripts/issue-traceability-amend-commit-msg.sh
+        shell: bash
+
+      - name: Push Amended Commits
+        run: |
+          git push --force-with-lease origin HEAD:${{ github.event.pull_request.head.ref }}
+        shell: bash
+
+      - name: Calculate Issue Traceability
+        id: traceability_report
+        run: |
+          total_commits=$(git rev-list --count HEAD)
+          # Make grep more specific to the start of the line for accuracy
+          issue_commits=$(git log --format=%B HEAD | grep -cE '^\- Issue: https://git\.chen\.so/')
+          report="No traceability report generated."
+          if [ "$total_commits" -eq 0 ]; then
+            report="No commits found in the repository."
+          else
+            # Use awk for safer division by zero handling and formatting
+            percentage=$(awk -v ic="$issue_commits" -v tc="$total_commits" 'BEGIN { if (tc > 0) { printf "%.2f", (ic/tc)*100 } else { print "0.00" } }')
+            report="**Issue Traceability Report** 📈\n\n$issue_commits out of $total_commits commits ($percentage%) reference a Radicle issue."
+          fi
+          # Output the report string for the next step
+          echo "report_message<<EOF" >> $GITHUB_OUTPUT
+          echo "$report" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+          # Also print to logs
+          echo "$report"
+        shell: bash
+
+      - name: Find Existing Comment
+        uses: peter-evans/find-comment@v3
+        id: fc
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-author: 'github-actions[bot]'
+          body-includes: 'Issue Traceability Report'
+
+      - name: Post or Update Comment
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          comment-id: ${{ steps.fc.outputs.comment-id }}
+          issue-number: ${{ github.event.pull_request.number }}
+          body: ${{ steps.traceability_report.outputs.report_message }}
+          edit-mode: replace
