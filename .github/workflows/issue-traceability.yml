@@ -90,18 +90,35 @@ jobs:
           total_commits=$(git rev-list --count HEAD)
           # Make grep more specific to the start of the line for accuracy
           issue_commits=$(git log --format=%B HEAD | grep -cE '^\- Issue: https://git\.chen\.so/')
-          report="No traceability report generated."
-          if [ "$total_commits" -eq 0 ]; then
-            report="No commits found in the repository."
+          
+          # Calculate percentage with 2 decimal precision 
+          percentage=$(awk -v ic="$issue_commits" -v tc="$total_commits" 'BEGIN { if (tc > 0) { printf "%.2f", (ic/tc)*100 } else { print "0.00" } }')
+          
+          # Generate the SVG badge
+          # Determine badge color based on percentage
+          if (( $(echo "$percentage >= 90" | bc -l) )); then
+            color="4c1"  # bright green for excellent traceability
+          elif (( $(echo "$percentage >= 75" | bc -l) )); then
+            color="97CA00"  # green for good traceability
+          elif (( $(echo "$percentage >= 50" | bc -l) )); then
+            color="dfb317"  # yellow for moderate traceability
+          elif (( $(echo "$percentage >= 25" | bc -l) )); then
+            color="fe7d37"  # orange for low traceability
           else
-            # Use awk for safer division by zero handling and formatting
-            percentage=$(awk -v ic="$issue_commits" -v tc="$total_commits" 'BEGIN { if (tc > 0) { printf "%.2f", (ic/tc)*100 } else { print "0.00" } }')
-            report="**Issue Traceability Report** 📈\n\n$issue_commits out of $total_commits commits ($percentage%) reference a Radicle issue."
+            color="e05d44"  # red for poor traceability
           fi
+          
+          # Create shield.io style badge URL
+          badge_url="https://img.shields.io/badge/issues-${percentage}%25-${color}"
+          
+          # Create the report with badge
+          report="# Issue Traceability Report 📈\n\n![Issue Traceability](${badge_url})\n\n$issue_commits out of $total_commits commits ($percentage%) reference a Radicle issue."
+
           # Output the report string for the next step
           echo "report_message<<EOF" >> $GITHUB_OUTPUT
           echo "$report" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
+          
           # Also print to logs
           echo "$report"
         shell: bash
