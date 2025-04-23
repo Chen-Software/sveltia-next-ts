@@ -23,26 +23,12 @@ fi
 
 # --- Filter Logic --- 
 # Create a temporary script file for the filter logic
-# We still use a heredoc here, but it's within a .sh file, not directly in YAML.
 cat > /tmp/msg-filter.sh << 'EOF'
 #!/bin/bash
-# Read the original commit message
-current_msg=$(cat)
-# Get the issue URL from environment (it was exported before calling filter-branch)
-issue_url="$ISSUE_URL"
-# Define the exact issue line to add
-issue_line_to_add="- Issue: $issue_url"
-
-# Check if any reference to this specific issue URL already exists
-if echo "$current_msg" | grep -qF "$issue_url"; then
-  # Issue URL already exists, keep message unchanged
-  echo "$current_msg"
-else
-  # URL doesn't exist, append our standardized format
-  echo "$current_msg"
-  echo ""
-  echo "$issue_line_to_add"
-fi
+# Filter commit messages: remove all existing Radicle issue references
+sed '/^- Issue: https:\/\/git\.chen\.so\//d' | sed -e ':a' -e '/^\n*$/{$d;N;};/\n$/ba'
+# Append a single standardized issue line
+echo "- Issue: $ISSUE_URL"
 EOF
 
 # Make the filter script executable
