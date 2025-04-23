@@ -20,7 +20,7 @@ export const Icon = ({
 	name: string;
 	className?: string;
 }) => {
-	const icons: { [key: string]: any } = {
+	const icons: { [key: string]: unknown } = {
 		blog: CodeBracketIcon,
 		burger: Bars2Icon,
 		close: XMarkIcon,

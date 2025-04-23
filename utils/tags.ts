@@ -1,4 +1,6 @@
-export function extractUniqueTags(tags: any[]) {
+import type { Post } from "../app/tags/[slug]/page";
+
+export function extractUniqueTags(tags: Post[]) {
 	// Collect all tags from all posts
 	const allTags = tags.reduce((acc, post) => {
 		// Check if the post has tags

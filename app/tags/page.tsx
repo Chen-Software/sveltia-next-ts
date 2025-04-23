@@ -61,19 +61,19 @@ export default function TagsPage() {
 				<div className="my-4 flex flex-wrap gap-12 justify-center">
 					{/* Group tags by first letter */}
 					{Array.from(
-						new Set(tags.map((tag: any) => tag.charAt(0).toUpperCase())),
+						new Set(tags.map((tag: string) => tag.charAt(0).toUpperCase())),
 					) // Get unique first letters
 						.sort() // Sort alphabetically
 						.map((firstLetter) => {
 							// Filter tags starting with the current first letter
 							const tagsStartingWithLetter = tags.filter(
-								(tag: any) => tag.charAt(0).toUpperCase() === firstLetter,
+								(tag: string) => tag.charAt(0).toUpperCase() === firstLetter,
 							);
 							return (
 								<div key={firstLetter}>
 									<h2 className="text-4xl  m-4">{firstLetter}</h2>
 									<ul className="flex flex-col gap-4">
-										{tagsStartingWithLetter.map((tag: any) => (
+										{tagsStartingWithLetter.map((tag: string) => (
 											<li key={tag} className="min-w-52 md:min-w-60">
 												<Tag tag={tag} />
 											</li>

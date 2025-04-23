@@ -4,7 +4,9 @@ import { useEffect } from "react";
 
 declare global {
 	interface Window {
-		netlifyIdentity: any;
+		netlifyIdentity: {
+			on: (event: string, callback: (user: unknown) => void) => void;
+		};
 	}
 }
 
