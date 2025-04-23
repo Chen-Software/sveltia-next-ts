@@ -1,0 +1,71 @@
+name: Issue Traceability
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+jobs:
+  annotate-commits:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Ensures full history for commit rewriting
+
+      - name: Extract Repository Name
+        run: |
+          echo "REPO_NAME=${GITHUB_REPOSITORY#*/}" >> $GITHUB_ENV
+        shell: bash
+
+      - name: Retrieve Radicle Issue ID from PR Body
+        id: extract_issue
+        run: |
+          PR_BODY="${{ github.event.pull_request.body }}"
+          
+          # Attempt to extract the issue ID from a full URL
+          ISSUE_ID=$(echo "$PR_BODY" | grep -Eo 'https://git\.chen\.so/[^/]+/i/[0-9a-f]{40}' | sed -E 's#.*/i/##' | head -n1)
+          
+          # If not found, look for a standalone 40-character SHA
+          if [ -z "$ISSUE_ID" ]; then
+            ISSUE_ID=$(echo "$PR_BODY" | grep -Eo '\b[0-9a-f]{40}\b' | head -n1)
+          fi
+
+          # If still not found, exit with an error
+          if [ -z "$ISSUE_ID" ]; then
+            echo "No issue reference found in PR body."
+            exit 1
+          fi
+
+          echo "ISSUE_ID=$ISSUE_ID" >> $GITHUB_ENV
+        shell: bash
+
+      - name: Amend Commit Messages with Radicle Issue Link
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions+bot+users.noreply@chen.software"
+          BASE_SHA="${{ github.event.pull_request.base.sha }}"
+          ISSUE_URL="https://git.chen.so/${REPO_NAME}/i/${ISSUE_ID}"
+          git filter-branch -f --msg-filter '
+            cat
+            echo ""
+            echo "- Issue: '"$ISSUE_URL"'"
+          ' "$BASE_SHA"..HEAD
+        shell: bash
+
+      - name: Push Amended Commits
+        run: |
+          git push --force-with-lease origin HEAD:${{ github.event.pull_request.head.ref }}
+        shell: bash
+
+      - name: Calculate Issue Traceability
+        run: |
+          total_commits=$(git rev-list --count HEAD)
+          issue_commits=$(git log --grep='- Issue: https://git.chen.so/' --oneline | wc -l)
+          if [ "$total_commits" -eq 0 ]; then
+            echo "No commits found in the repository."
+          else
+            percentage=$(echo "scale=2; ($issue_commits/$total_commits)*100" | bc)
+            echo "Issue Traceability: $issue_commits out of $total_commits commits ($percentage%) reference a Radicle issue."
+          fi
+        shell: bash
