@@ -23,10 +23,12 @@ fi
 
 # --- Filter Logic --- 
 # Create a temporary script file for the filter logic
-cat > /tmp/msg-filter.sh << 'EOF'
+export RADICLE_SITE=${RADICLE_SITE:-git.chen.so}
+
+cat > /tmp/msg-filter.sh << EOF
 #!/bin/bash
 # Filter commit messages: remove all existing Radicle issue references
-sed '/^- Issue: https:\/\/git\.chen\.so\//d' | sed -e ':a' -e '/^\n*$/{$d;N;};/\n$/ba'
+sed "/^- Issue: https:\/\/$RADICLE_SITE\//d" | sed -e ':a' -e '/^\n*$/{$d;N;};/\n$/ba'
 # Append a single standardized issue line
 echo "- Issue: $ISSUE_URL"
 EOF
