@@ -1,17 +1,20 @@
 #!/bin/bash
 
 # --- Input Validation ---
-if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ]; then
-  echo "::error::Usage: $0 <total_commits> <issue_commits> <repo_name>" >&2
+if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ] || [ -z "$4" ] || [ -z "$5" ]; then
+  echo "::error::Usage: $0 <total_commits> <issue_commits> <repo_name> <pr_total_commits> <pr_issue_commits>" >&2
   exit 1
 fi
 
 total_commits=$1
 issue_commits=$2
 repo_name=$3
+pr_total_commits=$4
+pr_issue_commits=$5
 
 # --- Calculation ---
 percentage=$(awk -v ic="$issue_commits" -v tc="$total_commits" 'BEGIN { if (tc > 0) { printf "%.2f", (ic/tc)*100 } else { print "0.00" } }')
+pr_percentage=$(awk -v ic="$pr_issue_commits" -v tc="$pr_total_commits" 'BEGIN { if (tc > 0) { printf "%.2f", (ic/tc)*100 } else { print "0.00" } }')
 
 # --- Determine Badge Color ---
 if (( $(echo "$percentage >= 90" | bc -l) )); then
@@ -36,5 +39,6 @@ cat << EOM
 
 ![Issue Traceability](${badge_url})
 
-$issue_commits out of $total_commits commits ($percentage%) reference an [issue](https://git.chen.so/${repo_name}/issues).
+Total commits: $issue_commits out of $total_commits commits ($percentage%) reference an [issue](https://git.chen.so/${repo_name}/issues).
+- Current PR commits: $pr_issue_commits out of $pr_total_commits commits ($pr_percentage%) reference an issue.
 EOM
