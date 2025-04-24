@@ -1,4 +1,5 @@
 #!/bin/bash
+set -euo pipefail
 
 # --- Environment Variables ---
 # RADICLE_SITES and RADICLE_URLS as JSON arrays for multi-site support
@@ -19,10 +20,18 @@ fi
 PRIMARY_URL="$RADICLE_URL"
 
 # --- Input Validation ---
-if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ] || [ -z "$4" ] || [ -z "$5" ]; then
+if [ $# -ne 5 ]; then
   echo "::error::Usage: $0 <total_commits> <issue_commits> <repo_name> <pr_total_commits> <pr_issue_commits>" >&2
   exit 1
 fi
+
+# Validate numeric inputs
+for i in {1,2,4,5}; do
+  if ! [[ "${!i}" =~ ^[0-9]+$ ]]; then
+    echo "::error::Parameter $i must be a number" >&2
+    exit 1
+  fi
+done
 
 total_commits=$1
 issue_commits=$2
@@ -31,27 +40,37 @@ pr_total_commits=$4
 pr_issue_commits=$5
 
 # --- Calculation ---
-percentage=$(awk -v ic="$issue_commits" -v tc="$total_commits" 'BEGIN { if (tc > 0) { printf "%.2f", (ic/tc)*100 } else { print "0.00" } }')
-pr_percentage=$(awk -v ic="$pr_issue_commits" -v tc="$pr_total_commits" 'BEGIN { if (tc > 0) { printf "%.2f", (ic/tc)*100 } else { print "0.00" } }')
+calculate_percentage() {
+  local ic=$1
+  local tc=$2
+  awk -v ic="$ic" -v tc="$tc" 'BEGIN { if (tc > 0) { printf "%.2f", (ic/tc)*100 } else { print "0.00" } }'
+}
+
+percentage=$(calculate_percentage "$issue_commits" "$total_commits")
+pr_percentage=$(calculate_percentage "$pr_issue_commits" "$pr_total_commits")
 
 # --- Determine Badge Color ---
-if (( $(echo "$percentage >= 90" | bc -l) )); then
-  color="4c1" # bright green
-elif (( $(echo "$percentage >= 75" | bc -l) )); then
-  color="97CA00" # green
-elif (( $(echo "$percentage >= 50" | bc -l) )); then
-  color="dfb317" # yellow
-elif (( $(echo "$percentage >= 25" | bc -l) )); then
-  color="fe7d37" # orange
-else
-  color="e05d44" # red
-fi
+get_badge_color() {
+  local percentage=$1
+  if (( $(echo "$percentage >= 90" | bc -l) )); then
+    echo "4c1" # bright green
+  elif (( $(echo "$percentage >= 75" | bc -l) )); then
+    echo "97CA00" # green
+  elif (( $(echo "$percentage >= 50" | bc -l) )); then
+    echo "dfb317" # yellow
+  elif (( $(echo "$percentage >= 25" | bc -l) )); then
+    echo "fe7d37" # orange
+  else
+    echo "e05d44" # red
+  fi
+}
+
+color=$(get_badge_color "$percentage")
 
 # --- Construct Badge URL ---
 badge_url="https://img.shields.io/badge/issues-${percentage}%25-${color}"
 
 # --- Generate Report Output --- 
-# Print the multi-line report to standard output. GitHub Actions will capture this.
 cat << EOM
 # Issue Traceability Report 
 
