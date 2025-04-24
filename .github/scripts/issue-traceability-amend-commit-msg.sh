@@ -1,11 +1,12 @@
 #!/bin/bash
+set -euo pipefail
 
 # --- Safety Checks ---
-if [ -z "$ISSUE_URL" ]; then
+if [ -z "${ISSUE_URL:-}" ]; then
   echo "::error::ISSUE_URL is required."
   exit 1
 fi
-if [ -z "$BASE_SHA" ]; then
+if [ -z "${BASE_SHA:-}" ]; then
   echo "::error::BASE_SHA is required."
   exit 1
 fi
@@ -22,40 +23,40 @@ else
 fi
 
 # --- Filter Logic --- 
-SITE_REGEX=$(echo "$RADICLE_SITES" | jq -r '.[]' | sed 's/\./\\./g' | paste -sd'|' -)
+# Create a temporary script file for the filter logic
+# RADICLE_SITES and RADICLE_URLS as JSON arrays for multi-site support
+RADICLE_SITES=${RADICLE_SITES:-'["git.chen.so", "code.chen.so", "git.chen.software", "code.chen.software"]'}
+RADICLE_URLS=${RADICLE_URLS:-'["https://git.chen.so", "https://code.chen.so", "https://git.chen.software", "https://code.chen.software"]'}
 
-cat > /tmp/msg-filter.sh << EOF
+# Determine primary site and URL for legacy compatibility
+if [ ! -z "$RADICLE_SITES" ]; then
+  readarray -t SITES < <(echo "$RADICLE_SITES" | jq -r '.[]')
+  RADICLE_SITE="${SITES[0]}"
+fi
+
+# Create temporary filter script
+TEMP_SCRIPT=$(mktemp)
+trap 'rm -f "$TEMP_SCRIPT"' EXIT
+
+cat > "$TEMP_SCRIPT" << EOF
 #!/usr/bin/env bash
-# Remove existing issue references for supported sites
-sed -E "/^- Issue: https:\/\/((${SITE_REGEX}))\//d"
-
-# Append the new issue reference
+# Remove any existing issue references
+sed '/^- Issue: https:\/\/[^/]\+\//d'
+# Add the new issue reference
 echo "- Issue: $ISSUE_URL"
 EOF
 
 # Make the filter script executable
-chmod +x /tmp/msg-filter.sh
-
-# Export the URL so it's available to the inner filter script
-export ISSUE_URL
+chmod +x "$TEMP_SCRIPT"
 
 # --- Execute filter-branch ---
 echo "Amending commits from $BASE_SHA..HEAD with Issue URL: $ISSUE_URL"
-FILTER_BRANCH_SQUELCH_WARNING=1 git filter-branch -f --msg-filter "/tmp/msg-filter.sh" "${BASE_SHA}..HEAD"
-
-# Check if filter-branch executed successfully
-FILTER_RESULT=$?
+FILTER_BRANCH_SQUELCH_WARNING=1 git filter-branch -f --msg-filter "$TEMP_SCRIPT" "${BASE_SHA}..HEAD"
 
 # --- Restore stashed changes if needed ---
 if [ "$CHANGES_STASHED" = true ]; then
   echo "Restoring stashed changes..."
   git stash pop
-fi
-
-# Now check the filter result
-if [ $FILTER_RESULT -ne 0 ]; then
-  echo "::error::git filter-branch command failed."
-  exit 1
 fi
 
 echo "Commit messages amended successfully."
