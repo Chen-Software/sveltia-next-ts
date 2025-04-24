@@ -1,8 +1,22 @@
 #!/bin/bash
 
 # --- Environment Variables ---
-RADICLE_URL=${RADICLE_URL:-https://git.chen.so}
-RADICLE_SITE=${RADICLE_SITE:-git.chen.so}
+# RADICLE_SITES and RADICLE_URLS as JSON arrays for multi-site support
+RADICLE_SITES=${RADICLE_SITES:-'["git.chen.so", "code.chen.so", "git.chen.software", "code.chen.software"]'}
+RADICLE_URLS=${RADICLE_URLS:-'["https://git.chen.so", "https://code.chen.so", "https://git.chen.software", "https://code.chen.software"]'}
+
+# Determine primary site and URL for legacy compatibility
+if [ ! -z "$RADICLE_SITES" ]; then
+  readarray -t SITES < <(echo "$RADICLE_SITES" | jq -r '.[]')
+  RADICLE_SITE="${SITES[0]}"
+fi
+if [ ! -z "$RADICLE_URLS" ]; then
+  readarray -t URLS < <(echo "$RADICLE_URLS" | jq -r '.[]')
+  RADICLE_URL="${URLS[0]}"
+fi
+
+# Use RADICLE_URL as primary URL for links
+PRIMARY_URL="$RADICLE_URL"
 
 # --- Input Validation ---
 if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ] || [ -z "$4" ] || [ -z "$5" ]; then
@@ -43,6 +57,6 @@ cat << EOM
 
 ![Issue Traceability](${badge_url})
 
-Total commits: $issue_commits out of $total_commits commits ($percentage%) reference an [issue](${RADICLE_URL}/${repo_name}/issues).
-- Current PR commits: $pr_issue_commits out of $pr_total_commits commits ($pr_percentage%) reference an [issue](${RADICLE_URL}/${repo_name}/issues).
+Total commits: $issue_commits out of $total_commits commits ($percentage%) reference an [issue](${PRIMARY_URL}/${repo_name}/issues).
+- Current PR commits: $pr_issue_commits out of $pr_total_commits commits ($pr_percentage%) reference an [issue](${PRIMARY_URL}/${repo_name}/issues).
 EOM
