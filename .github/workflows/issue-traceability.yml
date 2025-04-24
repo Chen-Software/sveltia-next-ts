@@ -3,6 +3,7 @@ name: Issue Traceability
 on:
   pull_request:
     types: [opened, reopened, synchronize]
+
 env:
   RADICLE_SITES: '["git.chen.so", "code.chen.so", "git.chen.software", "code.chen.software"]'
   RADICLE_URLS: '["https://git.chen.so", "https://code.chen.so", "https://git.chen.software", "https://code.chen.software"]'
@@ -119,47 +120,74 @@ jobs:
       - name: Calculate Issue Traceability
         id: traceability_report
         env:
-          # Make repository name available to pass to the script
           REPO_NAME: ${{ github.event.repository.name }}
+          RADICLE_SITES: '["git.chen.so", "code.chen.so", "git.chen.software", "code.chen.software"]'
+          RADICLE_URLS: '["https://git.chen.so", "https://code.chen.so", "https://git.chen.software", "https://code.chen.software"]'
         run: |
+          echo "--- Debug: Environment Variables --- "
+          echo "RADICLE_SITES: $RADICLE_SITES"
+          echo "RADICLE_URLS: $RADICLE_URLS"
+          echo "------------------------------------"
+
           # Convert JSON arrays to bash arrays for sites
-          readarray -t SITES < <(echo '${{ env.RADICLE_SITES }}' | jq -r '.[]')
+          readarray -t SITES < <(echo "$RADICLE_SITES" | jq -r '.[]')
+          readarray -t URLS < <(echo "$RADICLE_URLS" | jq -r '.[]')
+
+          # Validate array creation
+          if [ ${#SITES[@]} -eq 0 ] || [ ${#URLS[@]} -eq 0 ]; then
+            echo "::error::Failed to parse RADICLE_SITES or RADICLE_URLS JSON."
+            exit 1
+          fi
+          echo "Parsed SITES: ${SITES[@]}"
+          echo "Parsed URLS: ${URLS[@]}"
 
           # Create grep pattern for all sites
-          SITES_PATTERN=$(printf "https://%s/" "${SITES[@]}" | paste -sd'|' -)
+          SITES_PATTERN=""
+          for site in "${SITES[@]}"; do
+            escaped_site=$(echo "$site" | sed 's/\./\\./g')
+            if [ -z "$SITES_PATTERN" ]; then
+              SITES_PATTERN="https://${escaped_site}/"
+            else
+              SITES_PATTERN="${SITES_PATTERN}|https://${escaped_site}/"
+            fi
+          done
+          echo "Generated SITES_PATTERN: $SITES_PATTERN"
 
           # Calculate total commits and issue commits across the repository
           total_commits=$(git rev-list --count HEAD)
-          # Make grep more specific to the start of the line for accuracy, using all possible sites
+          # Use the generated pattern in grep
           issue_commits=$(git log --format=%B HEAD | grep -cE "^- Issue: (${SITES_PATTERN})")
+          echo "Total Commits: $total_commits, Issue Commits: $issue_commits"
 
           # Calculate PR-specific commits (commits between BASE_REF and HEAD)
           pr_total_commits=$(git rev-list --count ${{ github.event.pull_request.base.sha }}..HEAD)
           pr_issue_commits=$(git log --format=%B ${{ github.event.pull_request.base.sha }}..HEAD | grep -cE "^- Issue: (${SITES_PATTERN})")
+          echo "PR Total Commits: $pr_total_commits, PR Issue Commits: $pr_issue_commits"
 
           # Make the report generation script executable
           chmod +x .github/scripts/issue-traceability-generate-report.sh
 
-          # Run the script and capture its output
-          report_output=$(.github/scripts/issue-traceability-generate-report.sh "$total_commits" "$issue_commits" "$REPO_NAME" "$pr_total_commits" "$pr_issue_commits")
-
+          # Create a directory for the report
+          mkdir -p ./tmp
+          
+          # Run the script and write output directly to a file
+          .github/scripts/issue-traceability-generate-report.sh \
+            "$total_commits" "$issue_commits" "$REPO_NAME" \
+            "$pr_total_commits" "$pr_issue_commits" > ./tmp/traceability-report.md
+          
           # Check if the script executed successfully
           if [ $? -ne 0 ]; then
             echo "::error::Report generation script failed."
-            # Output a fallback message
-            echo "report_message=Failed to generate traceability report." >> $GITHUB_OUTPUT
-            exit 1
+            echo "Failed to generate traceability report." > ./tmp/traceability-report.md
           fi
-
-          # Output the captured report for the next step using multi-line syntax
-          echo "report_message<<EOF" >> $GITHUB_OUTPUT
-          echo "$report_output" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
-
+          
+          # Set the file path as output
+          echo "report_file=./tmp/traceability-report.md" >> $GITHUB_OUTPUT
+          
           # Also print to logs for debugging
-          echo "--- Generated Report ---"
-          echo "$report_output"
-          echo "------------------------"
+          echo "--- Generated Report --- "
+          cat ./tmp/traceability-report.md
+          echo "------------------------ "
         shell: bash
 
       - name: Find Existing Comment
@@ -175,7 +203,7 @@ jobs:
         with:
           comment-id: ${{ steps.fc.outputs.comment-id }}
           issue-number: ${{ github.event.pull_request.number }}
-          body: ${{ steps.traceability_report.outputs.report_message }}
+          body-file: ${{ steps.traceability_report.outputs.report_file }}
           edit-mode: replace
 
       - name: Check Issue Requirement
