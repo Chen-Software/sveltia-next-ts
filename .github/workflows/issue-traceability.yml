@@ -3,6 +3,9 @@ name: Issue Traceability
 on:
   pull_request:
     types: [opened, reopened, synchronize]
+env:
+  RADICLE_SITE: "git.chen.so"
+  RADICLE_URL: "https://git.chen.so"
 
 jobs:
   annotate-commits:
@@ -24,7 +27,7 @@ jobs:
           # Try different formats for finding the issue ID
           
           # 1. Try to extract from a full URL
-          ISSUE_ID=$(echo "$PR_BODY" | grep -Eo 'https://git\.chen\.so/[^/]+/i/[0-9a-f]{40}' | sed -E 's#.*/i/##' | head -n1)
+          ISSUE_ID=$(echo "$PR_BODY" | grep -Eo "https://$RADICLE_SITE/[^/]+/i/[0-9a-f]{40}" | sed -E 's#.*/i/##' | head -n1)
           
           # 2. If not found, look for a standalone 40-character SHA (this is the direct issue ID)
           if [ -z "$ISSUE_ID" ]; then
@@ -99,11 +102,11 @@ jobs:
           # Calculate total commits and issue commits across the repository
           total_commits=$(git rev-list --count HEAD)
           # Make grep more specific to the start of the line for accuracy
-          issue_commits=$(git log --format=%B HEAD | grep -cE '^- Issue: https://git\.chen\.so/')
+          issue_commits=$(git log --format=%B HEAD | grep -cE "^- Issue: https://$RADICLE_SITE/")
           
           # Calculate PR-specific commits (commits between BASE_REF and HEAD)
           pr_total_commits=$(git rev-list --count ${{ github.event.pull_request.base.sha }}..HEAD)
-          pr_issue_commits=$(git log --format=%B ${{ github.event.pull_request.base.sha }}..HEAD | grep -cE '^- Issue: https://git\.chen\.so/')
+          pr_issue_commits=$(git log --format=%B ${{ github.event.pull_request.base.sha }}..HEAD | grep -cE "^- Issue: https://$RADICLE_SITE/")
           
           # Make the report generation script executable
           chmod +x .github/scripts/issue-traceability-generate-report.sh

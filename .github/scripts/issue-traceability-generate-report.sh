@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# --- Environment Variables ---
+RADICLE_URL=${RADICLE_URL:-https://git.chen.so}
+RADICLE_SITE=${RADICLE_SITE:-git.chen.so}
+
 # --- Input Validation ---
 if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ] || [ -z "$4" ] || [ -z "$5" ]; then
   echo "::error::Usage: $0 <total_commits> <issue_commits> <repo_name> <pr_total_commits> <pr_issue_commits>" >&2
@@ -39,6 +43,6 @@ cat << EOM
 
 ![Issue Traceability](${badge_url})
 
-Total commits: $issue_commits out of $total_commits commits ($percentage%) reference an [issue](https://git.chen.so/${repo_name}/issues).
-- Current PR commits: $pr_issue_commits out of $pr_total_commits commits ($pr_percentage%) reference an issue.
+Total commits: $issue_commits out of $total_commits commits ($percentage%) reference an [issue](${RADICLE_URL}/${repo_name}/issues).
+- Current PR commits: $pr_issue_commits out of $pr_total_commits commits ($pr_percentage%) reference an [issue](${RADICLE_URL}/${repo_name}/issues).
 EOM
