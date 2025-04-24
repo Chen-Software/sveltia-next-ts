@@ -4,8 +4,11 @@ on:
   pull_request:
     types: [opened, reopened, synchronize]
 env:
-  RADICLE_SITE: "git.chen.so"
-  RADICLE_URL: "https://git.chen.so"
+  RADICLE_SITES: '["git.chen.so", "code.chen.so", "git.chen.software", "code.chen.software"]'
+  RADICLE_URLS: '["https://git.chen.so", "https://code.chen.so", "https://git.chen.software", "https://code.chen.software"]'
+  # Keep legacy env vars for backward compatibility
+  RADICLE_SITE: 'git.chen.so'
+  RADICLE_URL: 'https://git.chen.so'
 
 jobs:
   annotate-commits:
@@ -17,21 +20,36 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Ensures full history for commit rewriting
+          fetch-depth: 0 # Ensures full history for commit rewriting
 
       - name: Retrieve Radicle Issue ID from PR Body
         id: extract_issue
         run: |
           PR_BODY='${{ github.event.pull_request.body }}'
-          
-          # Try different formats for finding the issue ID
-          
-          # 1. Try to extract from a full URL
-          ISSUE_ID=$(echo "$PR_BODY" | grep -Eo "https://$RADICLE_SITE/[^/]+/i/[0-9a-f]{40}" | sed -E 's#.*/i/##' | head -n1)
-          
+          ISSUE_ID=""
+          FOUND_SITE=""
+
+          # Convert JSON arrays to bash arrays
+          readarray -t SITES < <(echo '${{ env.RADICLE_SITES }}' | jq -r '.[]')
+
+          # Try different formats for finding the issue ID across all sites
+          for SITE in "${SITES[@]}"; do
+            # 1. Try to extract from a full URL
+            ISSUE_ID=$(echo "$PR_BODY" | grep -Eo "https://${SITE}/[^/]+/i/[0-9a-f]{40}" | sed -E 's#.*/i/##' | head -n1)
+            
+            if [ ! -z "$ISSUE_ID" ]; then
+              FOUND_SITE="$SITE"
+              break
+            fi
+          done
+
           # 2. If not found, look for a standalone 40-character SHA (this is the direct issue ID)
           if [ -z "$ISSUE_ID" ]; then
             ISSUE_ID=$(echo "$PR_BODY" | grep -Eo '\b[0-9a-f]{40}\b' | head -n1)
+            # If we found an issue ID but no site, use the first site as default
+            if [ ! -z "$ISSUE_ID" ]; then
+              FOUND_SITE="${SITES[0]}"
+            fi
           fi
 
           # If still not found, mark as not found but don't exit
@@ -40,12 +58,16 @@ jobs:
             echo "issue_found=false" >> $GITHUB_OUTPUT
             # Set a default ISSUE_ID to avoid errors in later steps
             ISSUE_ID="not_found"
+            FOUND_SITE="${SITES[0]}"
           else
             echo "issue_found=true" >> $GITHUB_OUTPUT
             echo "Found Issue ID: $ISSUE_ID"
           fi
 
           echo "ISSUE_ID=$ISSUE_ID" >> $GITHUB_ENV
+          # Export the found site or default to first site
+          echo "RADICLE_SITE=$FOUND_SITE" >> $GITHUB_ENV
+          echo "Using Radicle site: $FOUND_SITE"
         shell: bash
 
       - name: Amend Commit Messages with Radicle Issue Link
@@ -77,8 +99,9 @@ jobs:
           git config user.email "github-actions+bot+users.noreply@chen.software"
 
           # --- Amend Logic ---
-          # Construct the full Radicle issue URL
-          ISSUE_URL="https://git.chen.so/${REPO_NAME}/i/${ISSUE_ID}"
+          # Use the primary URL (first in the list) for the issue link
+          readarray -t URLS < <(echo '${{ env.RADICLE_URLS }}' | jq -r '.[]')
+          ISSUE_URL="${URLS[0]}/${REPO_NAME}/i/${ISSUE_ID}"
 
           # Make the script executable
           chmod +x .github/scripts/issue-traceability-amend-commit-msg.sh
@@ -99,15 +122,21 @@ jobs:
           # Make repository name available to pass to the script
           REPO_NAME: ${{ github.event.repository.name }}
         run: |
+          # Convert JSON arrays to bash arrays for sites
+          readarray -t SITES < <(echo '${{ env.RADICLE_SITES }}' | jq -r '.[]')
+
+          # Create grep pattern for all sites
+          SITES_PATTERN=$(printf "https://%s/" "${SITES[@]}" | paste -sd'|' -)
+
           # Calculate total commits and issue commits across the repository
           total_commits=$(git rev-list --count HEAD)
-          # Make grep more specific to the start of the line for accuracy
-          issue_commits=$(git log --format=%B HEAD | grep -cE "^- Issue: https://$RADICLE_SITE/")
-          
+          # Make grep more specific to the start of the line for accuracy, using all possible sites
+          issue_commits=$(git log --format=%B HEAD | grep -cE "^- Issue: (${SITES_PATTERN})")
+
           # Calculate PR-specific commits (commits between BASE_REF and HEAD)
           pr_total_commits=$(git rev-list --count ${{ github.event.pull_request.base.sha }}..HEAD)
-          pr_issue_commits=$(git log --format=%B ${{ github.event.pull_request.base.sha }}..HEAD | grep -cE "^- Issue: https://$RADICLE_SITE/")
-          
+          pr_issue_commits=$(git log --format=%B ${{ github.event.pull_request.base.sha }}..HEAD | grep -cE "^- Issue: (${SITES_PATTERN})")
+
           # Make the report generation script executable
           chmod +x .github/scripts/issue-traceability-generate-report.sh
 
