@@ -1,11 +1,12 @@
 #!/bin/bash
+set -euo pipefail
 
 # --- Safety Checks ---
-if [ -z "$ISSUE_URL" ]; then
+if [ -z "${ISSUE_URL:-}" ]; then
   echo "::error::ISSUE_URL is required."
   exit 1
 fi
-if [ -z "$BASE_SHA" ]; then
+if [ -z "${BASE_SHA:-}" ]; then
   echo "::error::BASE_SHA is required."
   exit 1
 fi
@@ -22,38 +23,13 @@ else
 fi
 
 # --- Filter Logic --- 
-# Create a temporary script file for the filter logic
-cat > /tmp/msg-filter.sh << 'EOF'
-#!/bin/bash
-# Filter commit messages: remove all existing Radicle issue references
-sed '/^- Issue: https:\/\/git\.chen\.so\//d' | sed -e ':a' -e '/^\n*$/{$d;N;};/\n$/ba'
-# Append a single standardized issue line
-echo "- Issue: $ISSUE_URL"
-EOF
-
-# Make the filter script executable
-chmod +x /tmp/msg-filter.sh
-
-# Export the URL so it's available to the inner filter script
-export ISSUE_URL
-
-# --- Execute filter-branch ---
-echo "Amending commits from $BASE_SHA..HEAD with Issue URL: $ISSUE_URL"
-FILTER_BRANCH_SQUELCH_WARNING=1 git filter-branch -f --msg-filter "/tmp/msg-filter.sh" "${BASE_SHA}..HEAD"
-
-# Check if filter-branch executed successfully
-FILTER_RESULT=$?
+# Amend commits by stripping any previous issue lines and appending the new one
+git filter-branch --force --msg-filter "sed '/^- Issue: https:\/\//d'; echo '- Issue: ${ISSUE_URL}'" "${BASE_SHA}..HEAD"
 
 # --- Restore stashed changes if needed ---
 if [ "$CHANGES_STASHED" = true ]; then
   echo "Restoring stashed changes..."
   git stash pop
-fi
-
-# Now check the filter result
-if [ $FILTER_RESULT -ne 0 ]; then
-  echo "::error::git filter-branch command failed."
-  exit 1
 fi
 
 echo "Commit messages amended successfully."
