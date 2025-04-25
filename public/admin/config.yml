@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: Chen-Software/decap-tailwind-next-ts
+  repo: Chen-Software/sveltia-next-ts
   branch: main
 
 # local_backend: true
