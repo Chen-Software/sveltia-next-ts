@@ -30,19 +30,32 @@ trap 'rm -rf "$TEMP_DIR"' EXIT
 # Create a temporary script to filter commit messages
 cat > "$TEMP_DIR/filter_script.sh" << 'EOF'
 #!/bin/bash
-# Read the commit message from stdin
-cat > "$TEMP_DIR/msg"
 
-# Remove any existing issue references and separator
-sed -i '/^---$/,$d' "$TEMP_DIR/msg"
-# Remove any trailing whitespace
-sed -i '${/^[[:space:]]*$/d}' "$TEMP_DIR/msg"
+# Read the commit message from stdin and save it
+ORIG_MSG=$(cat)
+echo "$ORIG_MSG" > "$TEMP_DIR/original.msg"
 
-# Add the new issue reference with proper formatting
-echo -e "\n---\n\n- Issue: $ISSUE_URL" >> "$TEMP_DIR/msg"
+# Define the issue link pattern
+ISSUE_PATTERN='^- Issue: https://git\.chen\.so/sveltia-next-ts/i/[0-9a-f]{40}$'
 
-# Output the modified message
-cat "$TEMP_DIR/msg"
+# Extract all issue links from the original message
+EXISTING_LINKS=$(echo "$ORIG_MSG" | grep -E "$ISSUE_PATTERN" || true)
+
+# If there's a separator line, keep only the part before it
+MSG_BODY=$(echo "$ORIG_MSG" | sed '/^---$/q' | sed '/^---$/d')
+
+# Remove any issue links from the message body
+CLEANED_MSG_BODY=$(echo "$MSG_BODY" | grep -v -E "$ISSUE_PATTERN" || true)
+
+# Combine the new link with any existing links and deduplicate
+FORMATTED_NEW_LINK="- Issue: $ISSUE_URL"
+ALL_LINKS=$(echo -e "$FORMATTED_NEW_LINK\n$EXISTING_LINKS")
+UNIQUE_LINKS=$(echo "$ALL_LINKS" | grep -v '^$' | sort -u)
+
+# Construct the final message: cleaned body + separator + unique links
+echo "$CLEANED_MSG_BODY"
+echo -e "\n---\n"
+echo "$UNIQUE_LINKS"
 EOF
 
 # Make the filter script executable
