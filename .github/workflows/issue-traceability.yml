@@ -121,8 +121,6 @@ jobs:
         id: traceability_report
         env:
           REPO_NAME: ${{ github.event.repository.name }}
-          RADICLE_SITES: '["git.chen.so", "code.chen.so", "git.chen.software", "code.chen.software"]'
-          RADICLE_URLS: '["https://git.chen.so", "https://code.chen.so", "https://git.chen.software", "https://code.chen.software"]'
         run: |
           echo "--- Debug: Environment Variables --- "
           echo "RADICLE_SITES: $RADICLE_SITES"
