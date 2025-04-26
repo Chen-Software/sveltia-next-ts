@@ -22,9 +22,35 @@ else
   CHANGES_STASHED=false
 fi
 
+# --- Create temporary directory for filter script ---
+TEMP_DIR=$(mktemp -d)
+trap 'rm -rf "$TEMP_DIR"' EXIT
+
 # --- Filter Logic --- 
-# Amend commits by stripping any previous issue lines and appending the new one
-git filter-branch --force --msg-filter "sed '/^- Issue: https:\/\//d'; echo '- Issue: ${ISSUE_URL}'" "${BASE_SHA}..HEAD"
+# Create a temporary script to filter commit messages
+cat > "$TEMP_DIR/filter_script.sh" << 'EOF'
+#!/bin/bash
+# Read the commit message from stdin
+cat > "$TEMP_DIR/msg"
+
+# Remove any existing issue references and separator
+sed -i '/^---$/,$d' "$TEMP_DIR/msg"
+# Remove any trailing whitespace
+sed -i '${/^[[:space:]]*$/d}' "$TEMP_DIR/msg"
+
+# Add the new issue reference with proper formatting
+echo -e "\n---\n\n- Issue: $ISSUE_URL" >> "$TEMP_DIR/msg"
+
+# Output the modified message
+cat "$TEMP_DIR/msg"
+EOF
+
+# Make the filter script executable
+chmod +x "$TEMP_DIR/filter_script.sh"
+
+# --- Apply the filter script to each commit ---
+export ISSUE_URL TEMP_DIR
+git filter-branch --force --msg-filter "$TEMP_DIR/filter_script.sh" "${BASE_SHA}..HEAD"
 
 # --- Restore stashed changes if needed ---
 if [ "$CHANGES_STASHED" = true ]; then
