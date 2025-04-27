@@ -1,8 +1,8 @@
 export default {
-  openGraph: {
-    type: 'website',
-    locale: 'en',
-    url: 'https://design-code.tips',
-    site_name: 'design-code.tips',
-  },
+	openGraph: {
+		type: "website",
+		locale: "en",
+		url: "https://sveltia.chen.software",
+		site_name: "sveltia-next-ts",
+	},
 };
