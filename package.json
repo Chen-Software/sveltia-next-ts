@@ -24,6 +24,7 @@
 		"@pandacss/dev": "^0.53.4",
 		"@park-ui/panda-preset": "^0.43.1",
 		"@types/mdx": "^2.0.13",
+		"@types/next": "^9.0.0",
 		"@types/prismjs": "^1.26.3",
 		"@types/react": "^18.0.17",
 		"autoprefixer": "^10.4.19",
