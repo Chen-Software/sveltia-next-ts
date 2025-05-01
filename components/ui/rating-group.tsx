@@ -6,7 +6,9 @@ export interface RatingGroupProps extends StyledRatingGroup.RootProps {}
 
 export const RatingGroup = forwardRef<HTMLDivElement, RatingGroupProps>(
 	(props, ref) => {
-		const { children, ...rootProps } = props;
+		const { children, ...rootProps } = props as {
+			children?: React.ReactNode;
+		} & RatingGroupProps;
 		return (
 			<StyledRatingGroup.Root ref={ref} {...rootProps}>
 				{children && (
@@ -15,7 +17,7 @@ export const RatingGroup = forwardRef<HTMLDivElement, RatingGroupProps>(
 				<StyledRatingGroup.Control>
 					<StyledRatingGroup.Context>
 						{({ items }) =>
-							items.map((_item: unknown, index: number) => (
+							items.map((_item: { half: boolean }, index: number) => (
 								<StyledRatingGroup.Item key={index} index={index}>
 									<StyledRatingGroup.ItemContext>
 										{(item) => <StarIcon isHalf={item.half} />}
