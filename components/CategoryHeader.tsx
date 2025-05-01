@@ -1,4 +1,5 @@
 import { Icon } from "./Icon";
+import { Box, Stack } from "styled-system/jsx";
 
 export default function CategoryHeader({
 	title,
@@ -8,17 +9,25 @@ export default function CategoryHeader({
 	templateKey: string;
 }) {
 	return (
-		<>
-			<header className="flex justify-center items-end mb-12">
-				<div>
-					<h1 className="text-3xl md:text-4xl font-bold flex items-center gap-3">
-						<Icon name={templateKey} className="size-6 sm:size-8 opacity-60" />
-						<span>{title}</span>
-					</h1>
-				</div>
-
-				{/* <button>Filters</button> */}
-			</header>
-		</>
+		<Box
+			as="header"
+			display="flex"
+			justifyContent="center"
+			alignItems="flex-end"
+			marginBottom="12"
+		>
+			<Box>
+				<Stack
+					direction="horizontal"
+					align="center"
+					gap="3"
+					fontSize={{ base: "3xl", md: "4xl" }}
+					fontWeight="bold"
+				>
+					<Icon name={templateKey} className="size-6 sm:size-8 opacity-60" />
+					<Box>{title}</Box>
+				</Stack>
+			</Box>
+		</Box>
 	);
 }

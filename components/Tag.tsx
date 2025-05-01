@@ -1,17 +1,34 @@
 import Link from "next/link";
-
-export const tagClasses =
-	"py-2 px-3 bg-slate-200 dark:bg-slate-700 hover:bg-slate-700 hover:text-slate-100 dark:hover:bg-slate-200 dark:hover:text-slate-900 rounded-sm font-mono text-sm transition-colors";
+import { Box } from "styled-system/jsx";
 
 export default function Tag({ tag }: { tag: string }) {
 	return (
-		<Link
+		<Box
+			as={Link}
 			key={tag}
 			href={`/tags/${tag}/`}
-			className={tagClasses}
 			title={`See all posts for "${tag}" tag`}
+			padding="2 3"
+			backgroundColor="neutral.200"
+			color="neutral.900"
+			borderRadius="sm"
+			fontFamily="mono"
+			fontSize="sm"
+			transition="colors"
+			_hover={{
+				backgroundColor: "neutral.700",
+				color: "neutral.100",
+			}}
+			_dark={{
+				backgroundColor: "neutral.700",
+				color: "neutral.100",
+				_hover: {
+					backgroundColor: "neutral.200",
+					color: "neutral.900",
+				},
+			}}
 		>
 			#{tag}
-		</Link>
+		</Box>
 	);
 }
