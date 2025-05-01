@@ -17,8 +17,10 @@ function Pagnation({ totalPostCount }: { totalPostCount: number }) {
 	let pageIntoArray = Array.from(Array(totalPostCount).keys());
 
 	return (
+		// @ts-expect-error
 		<Box as="nav" aria-label="Pagination" margin="6">
 			<Stack
+				// @ts-expect-error
 				as="ul"
 				direction="horizontal"
 				justify="center"
@@ -27,8 +29,10 @@ function Pagnation({ totalPostCount }: { totalPostCount: number }) {
 				margin="0"
 			>
 				{pageIntoArray.map((page) => (
+					// @ts-expect-error
 					<Box as="li" key={page} padding="2">
 						<Box
+							// @ts-expect-error
 							as={Link}
 							href={page === 0 ? "/" : `/page/${page + 1}`}
 							display="block"

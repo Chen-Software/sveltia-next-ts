@@ -21,13 +21,21 @@ export default function BlogPost({ blog }: { blog: Blog }) {
 
 	return (
 		<Box
+			// @ts-expect-error
 			as="article"
 			maxWidth="5xl"
 			padding={{ base: "4", sm: "12" }}
 			paddingTop={{ sm: "0" }}
 			margin="auto"
 		>
-			<PostHeader data={blog} />
+			<PostHeader
+				data={{
+					title: blog.title ?? "",
+					date: blog.date ?? "",
+					templateKey: blog.templateKey ?? "",
+					tags: blog.tags ?? [],
+				}}
+			/>
 			<Box
 				className="blog-post"
 				dangerouslySetInnerHTML={{ __html: blog.body.html }}

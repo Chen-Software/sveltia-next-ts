@@ -10,6 +10,7 @@ export default function CategoryHeader({
 }) {
 	return (
 		<Box
+			// @ts-expect-error
 			as="header"
 			display="flex"
 			justifyContent="center"

@@ -15,9 +15,14 @@ interface PostHeaderProps {
 
 export default function PostHeader({ data }: PostHeaderProps) {
 	return (
-		<Box as="header" marginBottom="8">
+		<Box
+			// @ts-expect-error
+			as="header"
+			marginBottom="8"
+		>
 			<Stack direction="vertical" gap="4">
 				<Box
+					// @ts-expect-error
 					as="h1"
 					fontSize="4xl"
 					fontWeight="bold"
@@ -40,6 +45,7 @@ export default function PostHeader({ data }: PostHeaderProps) {
 				>
 					<Link href={`/${data.templateKey}`}>
 						<Box
+							// @ts-expect-error
 							as="span"
 							display="flex"
 							gap="2"
@@ -58,6 +64,7 @@ export default function PostHeader({ data }: PostHeaderProps) {
 						>
 							<Icon name={data.templateKey} className="size-4" />
 							<Box
+								// @ts-expect-error
 								as="span"
 								fontWeight="semibold"
 								sm={{
@@ -70,11 +77,20 @@ export default function PostHeader({ data }: PostHeaderProps) {
 							</Box>
 						</Box>
 					</Link>
-					<Box as="p" letterSpacing="wide" lineHeight="4">
-						<Box as="small">
+					<Box
+						// @ts-expect-error
+						as="p"
+						letterSpacing="wide"
+						lineHeight="4"
+					>
+						<Box
+							// @ts-expect-error
+							as="small"
+						>
 							Posted by{" "}
 							<Link href="/about/">
 								<Box
+									// @ts-expect-error
 									as="span"
 									fontWeight="semibold"
 									_hover={{
@@ -84,7 +100,11 @@ export default function PostHeader({ data }: PostHeaderProps) {
 									{AUTHOR_NAME}
 								</Box>
 							</Link>{" "}
-							<Box as="span" display="inline-flex">
+							<Box
+								// @ts-expect-error
+								as="span"
+								display="inline-flex"
+							>
 								{" "}
 								on {formatDate(new Date(data.date))}
 							</Box>

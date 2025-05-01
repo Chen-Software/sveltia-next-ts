@@ -4,6 +4,7 @@ import { Box } from "styled-system/jsx";
 export default function Tag({ tag }: { tag: string }) {
 	return (
 		<Box
+			// @ts-expect-error
 			as={Link}
 			key={tag}
 			href={`/tags/${tag}/`}
