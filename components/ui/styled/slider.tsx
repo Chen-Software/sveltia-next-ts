@@ -10,6 +10,7 @@ const { withProvider, withContext } = createStyleContext(slider);
 export type RootProviderProps = ComponentProps<typeof RootProvider>;
 export const RootProvider = withProvider<
 	HTMLDivElement,
+	// @ts-expect-error
 	Assign<
 		Assign<HTMLStyledProps<"div">, Slider.RootProviderBaseProps>,
 		SliderVariantProps
@@ -19,6 +20,7 @@ export const RootProvider = withProvider<
 export type RootProps = ComponentProps<typeof Root>;
 export const Root = withProvider<
 	HTMLDivElement,
+	// @ts-expect-error
 	Assign<
 		Assign<HTMLStyledProps<"div">, Slider.RootBaseProps>,
 		SliderVariantProps

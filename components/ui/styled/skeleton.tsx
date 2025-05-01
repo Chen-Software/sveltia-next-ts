@@ -1,6 +1,6 @@
 "use client";
-import type { Assign, HTMLArkProps } from "@ark-ui/react";
-import { ark } from "@ark-ui/react/factory";
+import type { Assign } from "@ark-ui/react";
+import { type HTMLArkProps, ark } from "@ark-ui/react/factory";
 import { forwardRef } from "react";
 import { styled } from "styled-system/jsx";
 import { type SkeletonVariantProps, skeleton } from "styled-system/recipes";

@@ -10,6 +10,7 @@ const { withProvider, withContext } = createStyleContext(select);
 export type RootProviderProps = ComponentProps<typeof RootProvider>;
 export const RootProvider = withProvider<
 	HTMLDivElement,
+	// @ts-expect-error
 	Assign<
 		Assign<
 			HTMLStyledProps<"div">,
@@ -22,6 +23,7 @@ export const RootProvider = withProvider<
 export type RootProps = ComponentProps<typeof Root>;
 export const Root = withProvider<
 	HTMLDivElement,
+	// @ts-expect-error
 	Assign<
 		Assign<HTMLStyledProps<"div">, Select.RootBaseProps<Select.CollectionItem>>,
 		SelectVariantProps

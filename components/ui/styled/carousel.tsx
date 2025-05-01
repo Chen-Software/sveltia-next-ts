@@ -10,6 +10,7 @@ const { withProvider, withContext } = createStyleContext(carousel);
 export type RootProviderProps = ComponentProps<typeof RootProvider>;
 export const RootProvider = withProvider<
 	HTMLDivElement,
+	// @ts-expect-error
 	Assign<
 		Assign<HTMLStyledProps<"div">, Carousel.RootProviderBaseProps>,
 		CarouselVariantProps
@@ -19,6 +20,7 @@ export const RootProvider = withProvider<
 export type RootProps = ComponentProps<typeof Root>;
 export const Root = withProvider<
 	HTMLDivElement,
+	// @ts-expect-error
 	Assign<
 		Assign<HTMLStyledProps<"div">, Carousel.RootBaseProps>,
 		CarouselVariantProps
@@ -62,7 +64,9 @@ export const PrevTrigger = withContext<
 
 export const Viewport = withContext<
 	HTMLDivElement,
+	// @ts-expect-error
 	Assign<HTMLStyledProps<"div">, Carousel.ViewportBaseProps>
+	// @ts-expect-error
 >(Carousel.Viewport, "viewport");
 
 export { CarouselContext as Context } from "@ark-ui/react/carousel";

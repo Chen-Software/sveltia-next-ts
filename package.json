@@ -16,6 +16,7 @@
 		"@ark-ui/react": "^5.7.0",
 		"@heroicons/react": "^2.1.5",
 		"framer-motion": "^11.3.30",
+		"lucide-react": "^0.503.0",
 		"next": "^14.2.6",
 		"next-image-export-optimizer": "^1.12.3",
 		"prismjs": "^1.29.0",
