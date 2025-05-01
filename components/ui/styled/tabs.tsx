@@ -10,6 +10,7 @@ const { withProvider, withContext } = createStyleContext(tabs);
 export type RootProviderProps = ComponentProps<typeof RootProvider>;
 export const RootProvider = withProvider<
 	HTMLDivElement,
+	// @ts-expect-error
 	Assign<
 		Assign<HTMLStyledProps<"div">, Tabs.RootProviderBaseProps>,
 		TabsVariantProps
@@ -19,6 +20,7 @@ export const RootProvider = withProvider<
 export type RootProps = ComponentProps<typeof Root>;
 export const Root = withProvider<
 	HTMLDivElement,
+	// @ts-expect-error
 	Assign<Assign<HTMLStyledProps<"div">, Tabs.RootBaseProps>, TabsVariantProps>
 >(Tabs.Root, "root");
 

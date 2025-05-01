@@ -1,10 +1,32 @@
 "use client";
-import { forwardRef } from "react";
+import {
+	AwaitedReactNode,
+	forwardRef,
+	JSXElementConstructor,
+	ReactElement,
+	ReactNode,
+	ReactPortal,
+} from "react";
 import { Button } from "./button";
 import { IconButton } from "./icon-button";
 import * as StyledPagination from "./styled/pagination";
 
 export interface PaginationProps extends StyledPagination.RootProps {}
+
+export type PageType = {
+	type: string;
+	value:
+		| string
+		| number
+		| bigint
+		| boolean
+		| ReactElement<any, string | JSXElementConstructor<any>>
+		| Iterable<ReactNode>
+		| ReactPortal
+		| Promise<AwaitedReactNode>
+		| null
+		| undefined;
+};
 
 export const Pagination = forwardRef<HTMLElement, PaginationProps>(
 	(props, ref) => {
@@ -17,7 +39,7 @@ export const Pagination = forwardRef<HTMLElement, PaginationProps>(
 				</StyledPagination.PrevTrigger>
 				<StyledPagination.Context>
 					{(pagination) =>
-						pagination.pages.map((page, index) =>
+						pagination.pages.map((page: PageType, index: number) =>
 							page.type === "page" ? (
 								<StyledPagination.Item key={index} {...page} asChild>
 									<Button variant="outline">{page.value}</Button>

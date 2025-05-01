@@ -13,6 +13,7 @@ const { withProvider, withContext } = createStyleContext(radioButtonGroup);
 export interface RootProps
 	extends Assign<HTMLStyledProps<"div">, RadioGroup.RootProps>,
 		RadioButtonGroupVariantProps {}
+// @ts-expect-error
 export const Root = withProvider<HTMLDivElement, RootProps>(
 	RadioGroup.Root,
 	"root",
