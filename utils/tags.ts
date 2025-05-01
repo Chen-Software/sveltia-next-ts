@@ -1,18 +1,20 @@
-export function extractUniqueTags(tags: any[]) {
-  // Collect all tags from all posts
-  const allTags = tags.reduce((acc, post) => {
-    // Check if the post has tags
-    return acc.concat(post.tags || []); // Using `|| []` to handle cases where tags is undefined
-  }, []);
+import type { Post } from "../app/tags/[slug]/page";
 
-  // Remove duplicates by converting to Set and then back to an array
-  let uniqueTags = Array.from(new Set(allTags));
+export function extractUniqueTags(tags: Post[]) {
+	// Collect all tags from all posts
+	const allTags = tags.reduce((acc, post) => {
+		// Check if the post has tags
+		return acc.concat(post.tags || []); // Using `|| []` to handle cases where tags is undefined
+	}, []);
 
-  // Remove undefined tags
-  uniqueTags = uniqueTags.filter(tag => tag !== undefined);
+	// Remove duplicates by converting to Set and then back to an array
+	let uniqueTags = Array.from(new Set(allTags));
 
-  // Sort tags alphabetically
-  uniqueTags.sort();
+	// Remove undefined tags
+	uniqueTags = uniqueTags.filter((tag) => tag !== undefined);
 
-  return uniqueTags;
+	// Sort tags alphabetically
+	uniqueTags.sort();
+
+	return uniqueTags;
 }

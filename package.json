@@ -4,6 +4,9 @@
 	"private": true,
 	"scripts": {
 		"prepare": "panda codegen",
+		"check": "npx @biomejs/biome check --changed --since=main --fix",
+		"format": "npx @biomejs/biome format --changed --since=main --write",
+		"lint": "npx @biomejs/biome lint --changed --since=main --fix",
 		"dev": "concurrently \"contentlayer2 dev\" \"next dev\" \"next-image-export-optimizer\"",
 		"build": "contentlayer2 build && next build && next-image-export-optimizer",
 		"start": "next start",
@@ -31,8 +34,6 @@
 		"autoprefixer": "^10.4.19",
 		"concurrently": "^8.2.2",
 		"contentlayer2": "^0.5.0",
-		"eslint": "^8.56.0",
-		"eslint-config-next": "^14.2.6",
 		"next-contentlayer2": "^0.5.0",
 		"next-seo": "^6.5.0",
 		"next-sitemap": "^4.2.3",
