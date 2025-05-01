@@ -12,6 +12,7 @@ import {
 	WrenchScrewdriverIcon,
 	XMarkIcon,
 } from "@heroicons/react/24/outline";
+import { ComponentType, createElement as h } from "react";
 
 export const Icon = ({
 	name,
@@ -35,11 +36,13 @@ export const Icon = ({
 		up: ArrowUpCircleIcon,
 	};
 
-	const IconComponent = icons[name];
+	const IconComponent = icons[name] as ComponentType;
 
 	if (!IconComponent) {
 		return null;
 	}
 
-	return <IconComponent className={className} />;
+	return h(IconComponent as ComponentType<{ className?: string }>, {
+		className,
+	});
 };
