@@ -1,5 +1,6 @@
 "use client";
-import type { Assign, PolymorphicProps } from "@ark-ui/react";
+import type { Assign } from "@ark-ui/react";
+import type { PolymorphicProps } from "@ark-ui/react/factory";
 import { ark } from "@ark-ui/react/factory";
 import { type TableVariantProps, table } from "styled-system/recipes";
 import type { HTMLStyledProps } from "styled-system/types";

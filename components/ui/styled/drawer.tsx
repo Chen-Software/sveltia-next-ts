@@ -1,5 +1,6 @@
 "use client";
-import type { Assign, PolymorphicProps } from "@ark-ui/react";
+import type { Assign } from "@ark-ui/react";
+import type { PolymorphicProps } from "@ark-ui/react/factory";
 import { Dialog } from "@ark-ui/react/dialog";
 import { ark } from "@ark-ui/react/factory";
 import { type DrawerVariantProps, drawer } from "styled-system/recipes";
