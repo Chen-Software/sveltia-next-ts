@@ -85,7 +85,7 @@ export default function TagPage({ params }: { params: { slug: string } }) {
 										href={`/${post.templateKey}/${post.slug}`}
 										className="p-4 sm:p-8 w-full flex flex-col md:flex-row-reverse gap-8 md:gap-12 bg-white dark:bg-slate-800 rounded-xl shadow-md hover:shadow-xl dark:hover:shadow-2xl dark:hover:bg-slate-700 transition-shadow dark:transition-colors"
 									>
-										{post.image ? (
+										{"image" in post ? (
 											<figure className="w-full md:max-w-48 flex justify-center items-center">
 												<ExportedImage
 													width={240}
