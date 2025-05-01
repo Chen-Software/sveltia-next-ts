@@ -15,7 +15,7 @@ export const RatingGroup = forwardRef<HTMLDivElement, RatingGroupProps>(
 				<StyledRatingGroup.Control>
 					<StyledRatingGroup.Context>
 						{({ items }) =>
-							items.map((index) => (
+							items.map((_item: unknown, index: number) => (
 								<StyledRatingGroup.Item key={index} index={index}>
 									<StyledRatingGroup.ItemContext>
 										{(item) => <StarIcon isHalf={item.half} />}

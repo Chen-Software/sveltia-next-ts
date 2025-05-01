@@ -23,7 +23,7 @@ export const Slider = forwardRef<HTMLDivElement, SliderProps>((props, ref) => {
 							<StyledSlider.Track>
 								<StyledSlider.Range />
 							</StyledSlider.Track>
-							{api.value.map((_, index) => (
+							{api.value.map((_: unknown, index: number) => (
 								<StyledSlider.Thumb key={index} index={index}>
 									<StyledSlider.HiddenInput />
 								</StyledSlider.Thumb>
@@ -31,11 +31,13 @@ export const Slider = forwardRef<HTMLDivElement, SliderProps>((props, ref) => {
 						</StyledSlider.Control>
 						{props.marks && (
 							<StyledSlider.MarkerGroup>
-								{props.marks.map((mark) => (
-									<StyledSlider.Marker key={mark.value} value={mark.value}>
-										{mark.label}
-									</StyledSlider.Marker>
-								))}
+								{props.marks.map(
+									(mark: { value: number; label?: ReactNode }) => (
+										<StyledSlider.Marker key={mark.value} value={mark.value}>
+											{mark.label}
+										</StyledSlider.Marker>
+									),
+								)}
 							</StyledSlider.MarkerGroup>
 						)}
 					</>
