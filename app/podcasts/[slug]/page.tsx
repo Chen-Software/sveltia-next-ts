@@ -59,7 +59,14 @@ export default function PodcastPage({ params }: { params: { slug: string } }) {
 	return (
 		<Layout>
 			<article className="max-w-4xl p-4 sm:p-12 sm:pt-0 m-auto">
-				<PostHeader data={podcast} />
+				<PostHeader
+					data={{
+						title: podcast.title,
+						date: podcast.date || "",
+						templateKey: podcast.templateKey,
+						tags: podcast.tags,
+					}}
+				/>
 				<Link
 					href={podcast.link as string}
 					title="Open podcast on a new tab"
