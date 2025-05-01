@@ -13,6 +13,7 @@ const { withProvider, withContext } = createStyleContext(switchRecipe);
 export type RootProviderProps = ComponentProps<typeof RootProvider>;
 export const RootProvider = withProvider<
 	HTMLLabelElement,
+	// @ts-expect-error
 	Assign<
 		Assign<HTMLStyledProps<"label">, Switch.RootProviderBaseProps>,
 		SwitchRecipeVariantProps
@@ -22,6 +23,7 @@ export const RootProvider = withProvider<
 export type RootProps = ComponentProps<typeof Root>;
 export const Root = withProvider<
 	HTMLLabelElement,
+	// @ts-expect-error
 	Assign<
 		Assign<HTMLStyledProps<"label">, Switch.RootBaseProps>,
 		SwitchRecipeVariantProps
