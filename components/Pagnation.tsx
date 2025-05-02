@@ -1,9 +1,10 @@
+import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React from "react";
+import { Box, Stack } from "styled-system/jsx";
 
 function Pagnation({ totalPostCount }: { totalPostCount: number }) {
-	const router = useRouter();
+	let router = useRouter();
 
 	/*
    pages give number,base on number we create a array. base on array we map a list elements
@@ -13,25 +14,51 @@ function Pagnation({ totalPostCount }: { totalPostCount: number }) {
    
   */
 
-	const pageIntoArray = Array.from(Array(totalPostCount).keys());
+	let pageIntoArray = Array.from(Array(totalPostCount).keys());
 
 	return (
-		<nav aria-label=" my-6">
-			<ul className="pagination justify-content-center">
-				{pageIntoArray.map((page) => {
-					return (
-						<li key={page} className="page-item p-2">
-							<Link
-								href={page === 0 ? "/" : `/page/${page + 1}`}
-								className="page-link"
-							>
-								{page + 1}
-							</Link>
-						</li>
-					);
-				})}
-			</ul>
-		</nav>
+		// @ts-expect-error
+		<Box as="nav" aria-label="Pagination" margin="6">
+			<Stack
+				// @ts-expect-error
+				as="ul"
+				direction="horizontal"
+				justify="center"
+				listStyle="none"
+				padding="0"
+				margin="0"
+			>
+				{pageIntoArray.map((page) => (
+					// @ts-expect-error
+					<Box as="li" key={page} padding="2">
+						<Box
+							// @ts-expect-error
+							as={Link}
+							href={page === 0 ? "/" : `/page/${page + 1}`}
+							display="block"
+							padding="2 4"
+							color="neutral.700"
+							textDecoration="none"
+							borderRadius="md"
+							transition="all 0.2s"
+							_hover={{
+								backgroundColor: "neutral.100",
+								color: "neutral.900",
+							}}
+							_dark={{
+								color: "neutral.300",
+								_hover: {
+									backgroundColor: "neutral.800",
+									color: "neutral.100",
+								},
+							}}
+						>
+							{page + 1}
+						</Box>
+					</Box>
+				))}
+			</Stack>
+		</Box>
 	);
 }
 
