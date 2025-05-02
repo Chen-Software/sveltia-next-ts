@@ -11,8 +11,9 @@ import {
 	allResources,
 	allTools,
 } from "../.contentlayer/generated";
-import { Icon } from "./Icon";
+import { Icon } from "components/ui/icon";
 import Tag from "./Tag";
+import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 
 export default function PostFooter({
 	data,
@@ -71,7 +72,9 @@ export default function PostFooter({
 							className="text-balance max-w-[24rem] group rounded outline-offset-[1rem]"
 						>
 							<span className="flex items-center gap-2 mb-2 justify-start text-sm text-slate-600 dark:text-slate-400 group-hover:text-slate-700 dark:group-hover:text-slate-300 duration-300">
-								<Icon name="prev" className="size-3" />
+								<Icon className="size-3">
+									<ChevronLeftIcon />
+								</Icon>
 								Previous
 							</span>
 							{prevPost.title}
@@ -84,7 +87,9 @@ export default function PostFooter({
 						>
 							<span className="flex items-center gap-2 mb-2 justify-end text-sm text-slate-600 dark:text-slate-400 group-hover:text-slate-700 dark:group-hover:text-slate-300 duration-300">
 								Next
-								<Icon name="next" className="size-3" />
+								<Icon className="size-3">
+									<ChevronRightIcon />
+								</Icon>
 							</span>
 							{nextPost.title}
 						</Link>

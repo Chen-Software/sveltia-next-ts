@@ -1,6 +1,16 @@
 import Link from "next/link";
 import { useState } from "react";
-import { Icon } from "./Icon";
+import { Icon } from "components/ui/icon";
+import {
+	XIcon,
+	MenuIcon,
+	HomeIcon,
+	TagIcon,
+	LightbulbIcon,
+	PodcastIcon,
+	WrenchIcon,
+	BookmarkIcon,
+} from "lucide-react";
 
 const menuItemClasses =
 	"w-full flex items-center gap-3 p-3 px-6 text-sm tracking-wide text-slate-700 dark:text-slate-700 hover:text-slate-800 dark:hover:text-slate-950 hover:font-semibold transition-colors transition-all border-b border-b-slate-200 dark:border-b-slate-300 hover:bg-slate-100 dark:hover:bg-white";
@@ -26,16 +36,7 @@ export default function Header() {
 						type="button"
 						onClick={() => setNavbar(!navbar)}
 					>
-						{navbar ? (
-							<span aria-label="Close menu" className="w-4 block">
-								<Icon name="close" className="size-4" />
-							</span>
-						) : (
-							<span className="flex gap-2 items-center group text-xs">
-								Menu
-								<Icon name="burger" className="size-4" />
-							</span>
-						)}
+						<Icon className="size-4">{navbar ? <XIcon /> : <MenuIcon />}</Icon>
 					</button>
 
 					<div className={`${navbar ? "" : "hidden"}`}>
@@ -46,7 +47,9 @@ export default function Header() {
 									href="/"
 									className={menuItemClasses}
 								>
-									<Icon name="home" className={iconClasses} />
+									<Icon className={iconClasses}>
+										<HomeIcon />
+									</Icon>
 									Home
 								</Link>
 							</li>
@@ -56,7 +59,9 @@ export default function Header() {
 									href="/blog"
 									className={menuItemClasses}
 								>
-									<Icon name="blog" className={iconClasses} />
+									<Icon className={iconClasses}>
+										<LightbulbIcon />
+									</Icon>
 									Code Blog
 								</Link>
 							</li>
@@ -66,7 +71,9 @@ export default function Header() {
 									href="/tags"
 									className={menuItemClasses}
 								>
-									<Icon name="tag" className={iconClasses} />
+									<Icon className={iconClasses}>
+										<TagIcon />
+									</Icon>
 									All Tags
 								</Link>
 							</li>
@@ -76,7 +83,9 @@ export default function Header() {
 									href="/inspiration"
 									className={menuItemClasses}
 								>
-									<Icon name="inspiration" className={iconClasses} />
+									<Icon className={iconClasses}>
+										<BookmarkIcon />
+									</Icon>
 									Inspiration
 								</Link>
 							</li>
@@ -86,7 +95,9 @@ export default function Header() {
 									href="/podcasts"
 									className={menuItemClasses}
 								>
-									<Icon name="podcasts" className={iconClasses} />
+									<Icon className={iconClasses}>
+										<PodcastIcon />
+									</Icon>
 									Podcasts
 								</Link>
 							</li>
@@ -96,7 +107,9 @@ export default function Header() {
 									href="/tools"
 									className={menuItemClasses}
 								>
-									<Icon name="tools" className={iconClasses} />
+									<Icon className={iconClasses}>
+										<WrenchIcon />
+									</Icon>
 									Tools
 								</Link>
 							</li>
@@ -106,7 +119,9 @@ export default function Header() {
 									href="/resources"
 									className={menuItemClasses}
 								>
-									<Icon name="resources" className={iconClasses} />
+									<Icon className={iconClasses}>
+										<BookmarkIcon />
+									</Icon>
 									Resources
 								</Link>
 							</li>

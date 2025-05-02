@@ -14,7 +14,8 @@ import {
 	allResources,
 	allTools,
 } from "../.contentlayer/generated";
-import { Icon } from "../components/Icon";
+import { Icon } from "components/ui/icon";
+import { BookIcon, PodcastIcon, WrenchIcon } from "lucide-react";
 import Layout from "../components/Layout";
 import BlogCardPost from "../components/cards/BlogPostCard";
 import InspirationPostCard from "../components/cards/InspirationPostCard";
@@ -99,7 +100,9 @@ export default function Home() {
 				<section className="flex flex-col gap-4">
 					<div className="flex justify-between items-end mb-4">
 						<h2 className="text-2xl sm:text-3xl font-bold flex items-center gap-3">
-							<Icon name="blog" className="size-6 sm:size-8 opacity-60" />
+							<Icon className="size-6 sm:size-8 opacity-60">
+								<BookIcon />
+							</Icon>
 							<span>Code Blog</span>
 						</h2>
 						<Link href="/blog">View all &rarr;</Link>
@@ -114,10 +117,9 @@ export default function Home() {
 				<section className="flex flex-col gap-4">
 					<div className="flex justify-between items-end mb-4">
 						<h2 className="text-2xl sm:text-3xl font-bold flex items-center gap-3">
-							<Icon
-								name="inspiration"
-								className="size-6 sm:size-8 opacity-60"
-							/>
+							<Icon className="size-6 sm:size-8 opacity-60">
+								<BookIcon />
+							</Icon>
 							<span>Inspiration</span>
 						</h2>
 						<Link href="/inspiration">View all &rarr;</Link>
@@ -132,7 +134,9 @@ export default function Home() {
 				<section className="flex flex-col gap-4">
 					<div className="flex justify-between items-end mb-4">
 						<h2 className="text-2xl sm:text-3xl font-bold flex items-center gap-3">
-							<Icon name="podcasts" className="size-6 sm:size-8 opacity-60" />
+							<Icon className="size-6 sm:size-8 opacity-60">
+								<PodcastIcon />
+							</Icon>
 							<span>Podcasts</span>
 						</h2>
 						<Link href="/podcasts">View all &rarr;</Link>
@@ -147,7 +151,9 @@ export default function Home() {
 				<section className="flex flex-col gap-4">
 					<div className="flex justify-between items-end mb-4">
 						<h2 className="text-2xl sm:text-3xl font-bold flex items-center gap-3">
-							<Icon name="tools" className="size-6 sm:size-8 opacity-60" />
+							<Icon className="size-6 sm:size-8 opacity-60">
+								<WrenchIcon />
+							</Icon>
 							<span>Tools</span>
 						</h2>
 						<Link href="/tools">View all &rarr;</Link>
