@@ -3,7 +3,6 @@
 import "../styles/index.css";
 import "../styles/prism-a11y-dark.css";
 
-import { AnimatePresence } from "framer-motion";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 
@@ -23,13 +22,7 @@ export default function RootLayout({
 			</head>
 			<body className="flex flex-col h-[100vh] text-slate-900 dark:text-slate-50 dark:bg-slate-900 hyphens-auto">
 				<Header />
-				<AnimatePresence
-					mode="wait"
-					initial={true}
-					onExitComplete={() => window.scrollTo(0, 0)}
-				>
-					{children}
-				</AnimatePresence>
+				{children}
 				<Footer />
 			</body>
 		</html>
