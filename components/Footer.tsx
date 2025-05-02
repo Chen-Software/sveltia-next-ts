@@ -1,4 +1,5 @@
-import { Icon } from "./Icon";
+import { Icon } from 'components/ui/icon';
+import { ArrowUpIcon } from 'lucide-react'
 
 export default function Footer() {
 	let currentYear = new Date().getFullYear();
@@ -16,7 +17,9 @@ export default function Footer() {
 					className="flex items-center gap-2 outline-offset-8 rounded"
 				>
 					<span>Scroll to Top</span>
-					<Icon name="up" className="size-4" />
+					<Icon className="size-4">
+						<ArrowUpIcon />
+					</Icon>
 				</button>
 			</div>
 		</footer>
