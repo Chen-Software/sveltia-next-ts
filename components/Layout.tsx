@@ -10,4 +10,5 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 		</Box>
 	);
 };
+
 export default Layout;

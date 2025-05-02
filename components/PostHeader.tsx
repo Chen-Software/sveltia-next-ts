@@ -1,53 +1,117 @@
+import { Box, Stack } from "styled-system/jsx";
 import Link from "next/link";
-import type {
-	Blog,
-	Inspiration,
-	Podcasts,
-	Resources,
-	Tools,
-} from "../.contentlayer/generated";
+import { Icon } from "./Icon";
 import { AUTHOR_NAME } from "../config";
 import { formatDate } from "../utils";
-import { Icon } from "./Icon";
 
-export default function PostHeader({
-	data,
-}: {
-	data: Blog | Inspiration | Podcasts | Resources | Tools;
-}) {
+interface PostHeaderProps {
+	data: {
+		title: string;
+		date: string;
+		templateKey: string;
+		tags: string[];
+	};
+}
+
+export default function PostHeader({ data }: PostHeaderProps) {
 	return (
-		<>
-			<header className="flex flex-col gap-4 sm:gap-6 mt-2 mb-24">
-				<h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-balance text-slate-800 dark:text-slate-200">
+		<Box
+			// @ts-expect-error
+			as="header"
+			marginBottom="8"
+		>
+			<Stack direction="vertical" gap="4">
+				<Box
+					// @ts-expect-error
+					as="h1"
+					fontSize="4xl"
+					fontWeight="bold"
+					lineHeight="tight"
+					color="neutral.900"
+					_dark={{
+						color: "neutral.100",
+					}}
+				>
 					{data.title}
-				</h1>
-				<div className="flex gap-4 items-center text-xs sm:text-base">
-					<Link href={`/${data.templateKey}`} className="rounded-lg">
-						<span className="flex gap-2 items-center px-3 py-2 rounded-lg text-slate-100 dark:text-slate-800 bg-slate-700 dark:bg-slate-200 hover:underline">
+				</Box>
+				<Box
+					display="flex"
+					gap="4"
+					alignItems="center"
+					fontSize="xs"
+					sm={{
+						fontSize: "base",
+					}}
+				>
+					<Link href={`/${data.templateKey}`}>
+						<Box
+							// @ts-expect-error
+							as="span"
+							display="flex"
+							gap="2"
+							alignItems="center"
+							padding="2 3"
+							borderRadius="lg"
+							color="neutral.100"
+							backgroundColor="neutral.700"
+							_dark={{
+								color: "neutral.800",
+								backgroundColor: "neutral.200",
+							}}
+							_hover={{
+								textDecoration: "underline",
+							}}
+						>
 							<Icon name={data.templateKey} className="size-4" />
-							<span className="font-semibold sm:text-sm">
+							<Box
+								// @ts-expect-error
+								as="span"
+								fontWeight="semibold"
+								sm={{
+									fontSize: "sm",
+								}}
+							>
 								{data.templateKey &&
 									data.templateKey.charAt(0).toUpperCase() +
 										data.templateKey.slice(1)}
-							</span>
-						</span>
+							</Box>
+						</Box>
 					</Link>
-					<p className="tracking-wide leading-4">
-						<small>
+					<Box
+						// @ts-expect-error
+						as="p"
+						letterSpacing="wide"
+						lineHeight="4"
+					>
+						<Box
+							// @ts-expect-error
+							as="small"
+						>
 							Posted by{" "}
-							<Link href={"/about/"} className="font-semibold hover:underline">
-								{AUTHOR_NAME}
+							<Link href="/about/">
+								<Box
+									// @ts-expect-error
+									as="span"
+									fontWeight="semibold"
+									_hover={{
+										textDecoration: "underline",
+									}}
+								>
+									{AUTHOR_NAME}
+								</Box>
 							</Link>{" "}
-							{data.date && (
-								<span className="inline-flex">
-									{" "}
-									on {`${formatDate(new Date(data.date))}`}
-								</span>
-							)}
-						</small>
-					</p>
-				</div>
-			</header>
-		</>
+							<Box
+								// @ts-expect-error
+								as="span"
+								display="inline-flex"
+							>
+								{" "}
+								on {formatDate(new Date(data.date))}
+							</Box>
+						</Box>
+					</Box>
+				</Box>
+			</Stack>
+		</Box>
 	);
 }
