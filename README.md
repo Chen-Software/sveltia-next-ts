@@ -1,29 +1,16 @@
-# 🚀 Next.js 14 Blog Starter with Tailwind CSS, Contentlayer, & Decap CMS
+# Sveltia Next.js TypeScript Starter
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/51784f6e-1f73-4db9-ad5e-c0c514a47181/deploy-status)](https://app.netlify.com/sites/nextjs-blog-tailwind-starter/deploys)
-
-Welcome to the [**design-code.tips**](https://design-code.tips/) Next.js starter! 
-
-This open-source starter template is built with **Next.js 14**, **Tailwind CSS**, **Contentlayer**, and **Decap CMS**. It's designed to be a simple and customizable way to launch a modern blog, with support for MDX and multiple categories like Code Blog, Inspiration, Podcasts, Tools, and Resources.
-
-![Starter Cover Preview](/starter-cover.png)
-
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/ositaka/nextjs-blog-tailwind-starter/)
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/import/project?template=https://github.com/ositaka/nextjs-blog-tailwind-starter/)
+This open-source starter template is built with **Next.js 14**, **PandaCSS**, **Contentlayer**, and **Sveltia CMS**. It's designed to be a simple and customizable way to launch a modern blog, with support for MDX and multiple categories like Code Blog, Inspiration, Podcasts, Tools, and Resources.
 
 ---
-
-## 💻 Starter Preview
-
-![Homepage in light and dark modes](/starter-preview.png)
 
 ## ✨ Features
 
 - 🛠️ **Next.js 14**: Fast, modern React framework for production-ready web applications.
-- 🎨 **Tailwind CSS**: Utility-first CSS for rapid UI development.
+- 🎨 **PandaCSS**: Zero-runtime CSS for rapid UI development.
 - 📄 **MDX Support**: Write your blog posts in Markdown with JSX components.
 - 🗂️ **Contentlayer**: Simple content management with files as data.
-- 📋 **Decap CMS**: Easily manage your posts through a friendly CMS interface.
+- 📋 **Sveltia CMS**: Easily manage your posts through a friendly CMS interface.
 - 🏷️ **Categories**: Pre-configured sections for Code Blog, Inspiration, Podcasts, and Tools.
 - 🖼️ **Optimized Images**: Use the `<ExportedImage />` component from the [`next-image-export-optimizer`](https://www.npmjs.com/package/next-image-export-optimizer) package for optimized image handling in static exports, replacing the default Next.js `<Image />` component for better control over image quality, formats (like WEBP), and cache settings.
 - 🌗 **Dark/Light Mode**: Automatically adapts to the user's operating system settings.
@@ -31,32 +18,25 @@ This open-source starter template is built with **Next.js 14**, **Tailwind CSS**
 ## 📦 Tech Stack
 
 - **Next.js 14**
-- **Tailwind CSS**
+- **PandaCSS**
 - **MDX**
 - **Contentlayer**
-- **Decap CMS**
+- **Sveltia CMS**
 
 ## 🚀 Quick Start
 
 Follow these steps to get the project up and running:
 
-1. **Clone the repository**:
+1. **Install dependencies:**
 
    ```bash
-   git clone https://github.com/ositaka/nextjs-blog-tailwind-starter
-   cd nextjs-blog-tailwind-starter
+   pnpm install
    ```
 
-2. **Install dependencies:**
+2. **Run the development server:**
 
    ```bash
-   npm install
-   ```
-
-3. **Run the development server:**
-
-   ```bash
-   npm run dev
+   pnpm run dev
    ```
 
    Open http://localhost:3000 in your browser to see the app running.
@@ -124,28 +104,18 @@ image: /media/2advanced-flash-website-v4-2003.jpg
 Currently, the 2Advanced Studios are closed for real, since some years already.
 ```
 
-## 🖥️ Decap CMS
+## 🖥️ Sveltia CMS
 
-### Run the CMS server
-
-To use [Decap CMS](https://decapcms.org/), you'll need to run its server alongside your Next.js development server. This can be done by running the following command **in a separate terminal**:
+The local development server will automatically start a [Sveltia CMS](https://sveltia.dev/) development server alongside your Next.js development server when you run:
 
 ```bash
-npx decap-server
+pnpm run dev
 ```
 
 You can then access the CMS at http://localhost:3000/admin/index.html.
 
 > [!NOTE]  
 > If you'd like to test the CMS locally, set `local_backend: true` in `public/admin/config.yml`. Don't forget to restart the server after making changes.
-
-> [!TIP]  
-> For more information, refer to the [Decap CMS documentation](https://decapcms.org/docs/). If you'd like to see an advanced example of how to use Decap CMS, check out this [Decap CMS `config.yml` example](https://github.com/decaporg/decap-cms/blob/main/dev-test/config.yml).
-
-### Screenshots
-
-![Decap CMS - Screenshot](/screenshot--cms1.png)
-![Decap CMS - Screenshot](/screenshot--cms2.png)
 
 ---
 
@@ -277,44 +247,12 @@ Deploy your own instance of this blog starter project using one of the following
 > [!NOTE]  
 > If you encounter errors related to **`sharp`** during deployment, please try removing the `package-lock.json` file, as this can sometimes resolve issues with Sharp's dependencies.
 
-### Setting up Netlify Identity with Decap CMS
+### Setting up Sveltia CMS
 
-If you're deploying your site with Netlify and using Decap CMS for content management, you'll need to enable [Netlify Identity](https://docs.netlify.com/security/secure-access-to-sites/identity/) to allow users to log in to the CMS at /admin.
-
-1. **Enable Identity**:
-
-   - Go to your site's dashboard on [Netlify](https://www.netlify.com/), navigate to the "Identity" tab, and click Enable Identity.
-
-2. **Configure Git Gateway**:
-
-   - In the Identity settings, enable Git Gateway. This will allow your CMS to interact with the repository via OAuth authentication.
-
-3. **Invite Users**:
-
-   - Invite yourself or other team members to the CMS. Go to the "Identity" tab, click Invite Users, and send invites via email.
-
-4. **Login Access**:
-
-   - Once enabled, users can log in to the /admin panel using their Netlify Identity credentials.
-
-Here's a preview of how this might look in your `config.yml` for Decap CMS:
-
-```yaml
-backend:
-  name: git-gateway
-  branch: main
-```
-
-To enable Netlify Identity in this starter project, the following component is used in the `layout.tsx` file:
-
-```tsx
-<NetlifyIdentityRedirect />
-```
-
-This component automatically redirects users to the login page if they are not authenticated.
+If you're deploying your site using GitHub as backend and using Sveltia CMS for content management.
 
 > [!TIP]  
-> For more information on setting up Netlify Identity with Decap CMS, visit the [Decap CMS documentation – Choosing a Backend](https://decapcms.org/docs/choosing-a-backend).
+> For more information on setting up GitHub backend with Sveltia CMS, see: https://github.com/sveltia/sveltia-cms.
 
 ---
 
@@ -352,6 +290,6 @@ Thank you for considering contributing to the project!
 
 ## 🙌 Acknowledgments
 
-Built with ❤️ in 🇵🇹 and 🇧🇪 using [Next.js](https://nextjs.org/) (an amazing open-source React framework), [Tailwind CSS](https://tailwindcss.com/) (for rapid UI development), [Contentlayer](https://contentlayer.dev/) (for managing content), and [Decap CMS](https://decapcms.org/) (for a user-friendly content management experience).
+Built with ❤️ in 🇮🇪, 🇵🇹 and 🇧🇪 using [Next.js](https://nextjs.org/) (an amazing open-source React framework), [PandaCSS](https://panda-css.com/) (for rapid UI development), [Contentlayer](https://contentlayer.dev/) (for managing content), and [Sveltia CMS](https://sveltia.dev/) (for a user-friendly content management experience).
 
 A big thank you to the communities behind these projects for their hard work and dedication!
