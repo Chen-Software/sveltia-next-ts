@@ -53,7 +53,14 @@ export default function ToolPage({ params }: { params: { slug: string } }) {
 	return (
 		<Layout>
 			<article className="max-w-4xl p-4 sm:p-12 sm:pt-0 m-auto">
-				<PostHeader data={tool} />
+				<PostHeader
+					data={{
+						title: tool.title,
+						date: tool.date || "",
+						templateKey: tool.templateKey,
+						tags: tool.tags || [],
+					}}
+				/>
 				<div
 					className="blog-post mt-12"
 					dangerouslySetInnerHTML={{ __html: tool.body.html }}

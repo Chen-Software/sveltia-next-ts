@@ -57,7 +57,14 @@ export default function ResourcePage({ params }: { params: { slug: string } }) {
 	return (
 		<Layout>
 			<article className="max-w-4xl p-4 sm:p-12 sm:pt-0 m-auto">
-				<PostHeader data={resource as Resources} />
+				<PostHeader
+					data={{
+						title: resource.title,
+						date: resource.date || "",
+						templateKey: resource.templateKey,
+						tags: resource.tags,
+					}}
+				/>
 				<figure className="flex flex-col gap-2 mt-12 bg-slate-200 dark:bg-slate-700 rounded-lg overflow-hidden">
 					<a
 						href={resource.link}
