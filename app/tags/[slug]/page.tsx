@@ -21,10 +21,20 @@ import {
 	BrushIcon,
 	WrenchIcon,
 	BookIcon,
+	LayoutGridIcon,
+	BriefcaseIcon,
+	UsersIcon,
+	MailIcon,
+	TestTube2Icon,
+	GraduationCapIcon,
+	Code2Icon,
+	ImageOffIcon,
+	ZapIcon,
+	TerminalIcon,
 } from "lucide-react";
 import Layout from "../../../components/Layout";
 import { AUTHOR_NAME, SITE_NAME, SITE_URL } from "../../../config";
-import { createElement as h, ReactNode } from "react";
+import { createElement as h } from "react";
 
 const iconMap = {
 	blog: BookOpenIcon,
@@ -32,6 +42,17 @@ const iconMap = {
 	inspiration: BrushIcon,
 	tool: WrenchIcon,
 	resource: BookIcon,
+	apps: LayoutGridIcon,
+	business: BriefcaseIcon,
+	collaborative: UsersIcon,
+	community: UsersIcon,
+	email: MailIcon,
+	example: TestTube2Icon,
+	learning: GraduationCapIcon,
+	"open-source": Code2Icon,
+	placeholder: ImageOffIcon,
+	productivity: ZapIcon,
+	software: TerminalIcon,
 } as const;
 
 type TemplateKey = keyof typeof iconMap;
@@ -72,7 +93,7 @@ export async function generateMetadata({
 
 export type Post = Blog | Inspiration | Podcasts | Resources | Tools;
 
-export default function TagPage({ params }: { params: { slug: string } }) {
+const TagPage = ({ params }: { params: { slug: string } }) => {
 	const allPosts = [
 		...allBlogs,
 		...allInspirations,
@@ -147,7 +168,9 @@ export default function TagPage({ params }: { params: { slug: string } }) {
 			</Layout>
 		</>
 	);
-}
+};
+
+export default TagPage;
 
 export function generateStaticParams() {
 	return [
