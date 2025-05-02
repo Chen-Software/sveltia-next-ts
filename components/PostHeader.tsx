@@ -4,7 +4,7 @@ import { Icon } from "components/ui/icon";
 import { BookIcon, WrenchIcon, PodcastIcon, LightbulbIcon } from "lucide-react";
 import { AUTHOR_NAME } from "../config";
 import { formatDate } from "../utils";
-import { ReactNode } from "react";
+import { createElement as h } from "react";
 
 const iconMap = {
 	blog: BookIcon,
@@ -74,11 +74,7 @@ export default function PostHeader({ data }: PostHeaderProps) {
 							}}
 						>
 							<Icon className="size-4">
-								{
-									iconMap[
-										data.templateKey as TemplateKey
-									] as unknown as ReactNode
-								}
+								{h(iconMap[data.templateKey as TemplateKey])}
 							</Icon>
 							<Box
 								// @ts-expect-error

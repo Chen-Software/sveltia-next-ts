@@ -24,7 +24,7 @@ import {
 } from "lucide-react";
 import Layout from "../../../components/Layout";
 import { AUTHOR_NAME, SITE_NAME, SITE_URL } from "../../../config";
-import { ReactNode } from "react";
+import { createElement as h, ReactNode } from "react";
 
 const iconMap = {
 	blog: BookOpenIcon,
@@ -116,11 +116,7 @@ export default function TagPage({ params }: { params: { slug: string } }) {
 										) : (
 											<div className="w-full md:max-w-48 flex justify-center items-center bg-slate-200 dark:bg-slate-800 border border-white dark:border-slate-700 rounded-xl">
 												<Icon className="size-12 sm:size-16 opacity-60">
-													{
-														iconMap[
-															post.templateKey as TemplateKey
-														] as unknown as ReactNode
-													}
+													{h(iconMap[post.templateKey as TemplateKey])}
 												</Icon>
 											</div>
 										)}
@@ -128,11 +124,7 @@ export default function TagPage({ params }: { params: { slug: string } }) {
 										<div className="flex flex-col gap-2 w-full">
 											<span className="flex items-center gap-2 text-slate-500 dark:text-slate-400 text-xs font-bold">
 												<Icon className="size-3">
-													{
-														iconMap[
-															post.templateKey as TemplateKey
-														] as unknown as ReactNode
-													}
+													{h(iconMap[post.templateKey as TemplateKey])}
 												</Icon>{" "}
 												{post.type}
 											</span>

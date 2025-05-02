@@ -1,5 +1,12 @@
 import { Icon } from "components/ui/icon";
-import { BookIcon, WrenchIcon, PodcastIcon, LightbulbIcon } from "lucide-react";
+import {
+	BookIcon,
+	WrenchIcon,
+	PodcastIcon,
+	LightbulbIcon,
+	TagIcon,
+} from "lucide-react";
+import { createElement as h } from "react";
 import { Box, Stack } from "styled-system/jsx";
 
 const iconMap = {
@@ -7,6 +14,7 @@ const iconMap = {
 	tools: WrenchIcon,
 	podcasts: PodcastIcon,
 	inspiration: LightbulbIcon,
+	tag: TagIcon,
 } as const;
 
 interface Props {
@@ -33,7 +41,7 @@ export default function CategoryHeader({ title, templateKey }: Props) {
 					fontWeight="bold"
 				>
 					<Icon className="size-6 sm:size-8 opacity-60">
-						{iconMap[templateKey]()}
+						{h(iconMap[templateKey])}
 					</Icon>
 					<Box>{title}</Box>
 				</Stack>
