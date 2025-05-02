@@ -1,8 +1,19 @@
 import { Box, Stack } from "styled-system/jsx";
 import Link from "next/link";
-import { Icon } from "./Icon";
+import { Icon } from "components/ui/icon";
+import { BookIcon, WrenchIcon, PodcastIcon, LightbulbIcon } from "lucide-react";
 import { AUTHOR_NAME } from "../config";
 import { formatDate } from "../utils";
+import { ReactNode } from "react";
+
+const iconMap = {
+	blog: BookIcon,
+	tools: WrenchIcon,
+	podcasts: PodcastIcon,
+	inspiration: LightbulbIcon,
+} as const;
+
+type TemplateKey = keyof typeof iconMap;
 
 interface PostHeaderProps {
 	data: {
@@ -62,7 +73,13 @@ export default function PostHeader({ data }: PostHeaderProps) {
 								textDecoration: "underline",
 							}}
 						>
-							<Icon name={data.templateKey} className="size-4" />
+							<Icon className="size-4">
+								{
+									iconMap[
+										data.templateKey as TemplateKey
+									] as unknown as ReactNode
+								}
+							</Icon>
 							<Box
 								// @ts-expect-error
 								as="span"
