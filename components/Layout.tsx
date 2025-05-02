@@ -1,27 +1,13 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { usePathname } from "next/navigation";
-import type { ReactNode } from "react";
+import React from "react";
+import { Box } from "styled-system/jsx";
 
-const Layout = ({ children }: { children: ReactNode }) => {
-	const pathname = usePathname();
-
+const Layout = ({ children }: { children: React.ReactNode }) => {
 	return (
-		<motion.main
-			key={pathname}
-			initial={{ opacity: 0 }}
-			animate={{ opacity: 1 }}
-			exit={{ opacity: 0 }}
-			transition={{
-				type: "spring",
-				stiffness: 60,
-				damping: 30,
-			}}
-			className="w-full max-w-full"
-		>
-			<div className="pt-24">{children}</div>
-		</motion.main>
+		<Box width="full" maxWidth="full" paddingTop={"24px"}>
+			{children}
+		</Box>
 	);
 };
 export default Layout;
