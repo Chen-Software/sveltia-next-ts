@@ -26,7 +26,14 @@ export default function InspirationPost({
 
 	return (
 		<article className="max-w-5xl p-4 sm:p-12 sm:pt-0 m-auto">
-			<PostHeader data={inspiration as Inspiration} />
+			<PostHeader
+				data={{
+					title: inspiration.title,
+					date: inspiration.date || "",
+					templateKey: inspiration.templateKey,
+					tags: inspiration.tags,
+				}}
+			/>
 
 			<div className="blog-post mt-12">
 				<MDXContent components={mdxComponents} />
