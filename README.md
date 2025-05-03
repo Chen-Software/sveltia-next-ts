@@ -1,13 +1,18 @@
 # Sveltia Next.js TypeScript Starter
 
-This open-source starter template is built with **Next.js 14**, **PandaCSS**, **Contentlayer**, and **Sveltia CMS**. It's designed to be a simple and customizable way to launch a modern blog, with support for MDX and multiple categories like Code Blog, Inspiration, Podcasts, Tools, and Resources.
+---
+
+[![GitHub Pages](https://github.com/Chen-Software/sveltia-next-ts/actions/workflows/deploy-github-pages.yml/badge.svg)](https://github.com/Chen-Software/sveltia-next-ts/actions/workflows/deploy-github-pages.yml)
+
+This open-source starter template is built with **Next.js 14**, **Park UI** (**Ark UI** + **Panda CSS**), **Contentlayer**, and **Sveltia CMS**. It's designed to be a simple and customizable way to launch a modern blog, with support for MDX and multiple categories like Code Blog, Inspiration, Podcasts, Tools, and Resources.
 
 ---
 
 ## ✨ Features
 
 - 🛠️ **Next.js 14**: Fast, modern React framework for production-ready web applications.
-- 🎨 **PandaCSS**: Zero-runtime CSS for rapid UI development.
+- 🎨 **Park UI**: Headless UI framework for rapid UI development.
+- 🐼 **Panda CSS**: Zero-runtime CSS design system styling engine.
 - 📄 **MDX Support**: Write your blog posts in Markdown with JSX components.
 - 🗂️ **Contentlayer**: Simple content management with files as data.
 - 📋 **Sveltia CMS**: Easily manage your posts through a friendly CMS interface.
@@ -18,7 +23,8 @@ This open-source starter template is built with **Next.js 14**, **PandaCSS**, **
 ## 📦 Tech Stack
 
 - **Next.js 14**
-- **PandaCSS**
+- **Park UI**
+- **Panda CSS**
 - **MDX**
 - **Contentlayer**
 - **Sveltia CMS**
@@ -124,7 +130,7 @@ You can then access the CMS at http://localhost:3000/admin/index.html.
 Customize the project to suit your needs by editing the following files:
 
 - [`config.js`](https://git.chen.software/sveltia-next-ts/tree/config.js): Your Bleg Starter configuration.
-- [`panda.config.js`](https://git.chen.software/sveltia-next-ts/tree/panda.config.js): PandaCSS configuration.
+- [`panda.config.js`](https://git.chen.software/sveltia-next-ts/tree/panda.config.js): Panda CSS configuration.
 - [`next.config.js`](https://git.chen.software/sveltia-next-ts/tree/next.config.js): Next.js custom settings.
 - [`next-seo.config.js`](https://git.chen.software/sveltia-next-ts/tree/next-seo.config.js): SEO configuration for Next.js.
 - [`contentlayer.config.js`](https://git.chen.software/sveltia-next-ts/tree/contentlayer.config.ts): Contentlayer configuration for MDX files.
@@ -239,6 +245,14 @@ With these types in place, you can benefit from strong typing and auto-completio
 
 ## 🚀 Deploy
 
+### Deploy to GitHub Pages
+
+Deploy your own instance of this blog starter project using one of the following providers:
+
+[![Deploy to GitHub Pages](https://github.com/Chen-Software/sveltia-next-ts/actions/workflows/deploy-github-pages.yml/badge.svg)](https://github.com/Chen-Software/sveltia-next-ts/actions/workflows/deploy-github-pages.yml)
+
+### Deploy to Netlify
+
 Deploy your own instance of this blog starter project using one of the following providers:
 
 [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/Chen-Software/sveltia-next-ts)
@@ -290,6 +304,6 @@ Thank you for considering contributing to the project!
 
 ## 🙌 Acknowledgments
 
-Built with ❤️ in 🇮🇪, 🇵🇹 and 🇧🇪 using [Next.js](https://nextjs.org/) (an amazing open-source React framework), [PandaCSS](https://panda-css.com/) (for rapid UI development), [Contentlayer](https://contentlayer.dev/) (for managing content), and [Sveltia CMS](https://sveltia.dev/) (for a user-friendly content management experience).
+Built with ❤️ in 🇮🇪, 🇵🇹 and 🇧🇪 using [Next.js](https://nextjs.org/) (an amazing open-source React framework), [Panda CSS](https://panda-css.com/) (for rapid UI development), [Contentlayer](https://contentlayer.dev/) (for managing content), and [Sveltia CMS](https://sveltia.dev/) (for a user-friendly content management experience).
 
 A big thank you to the communities behind these projects for their hard work and dedication!
