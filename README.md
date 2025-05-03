@@ -123,12 +123,12 @@ You can then access the CMS at http://localhost:3000/admin/index.html.
 
 Customize the project to suit your needs by editing the following files:
 
-- [`config.js`](https://github.com/ositaka/nextjs-blog-tailwind-starter/blob/main/config.js): Your Bleg Starter configuration.
-- [`tailwind.config.js`](https://github.com/ositaka/nextjs-blog-tailwind-starter/blob/main/tailwind.config.js): Tailwind CSS configuration.
-- [`next.config.js`](https://github.com/ositaka/nextjs-blog-tailwind-starter/blob/main/next.config.js): Next.js custom settings.
-- [`next-seo.config.js`](https://github.com/ositaka/nextjs-blog-tailwind-starter/blob/main/next-seo.config.js): SEO configuration for Next.js.
-- [`contentlayer.config.js`](https://github.com/ositaka/nextjs-blog-tailwind-starter/blob/main/contentlayer.config.ts): Contentlayer configuration for MDX files.
-- [`public/admin/config.yml`](https://github.com/ositaka/nextjs-blog-tailwind-starter/blob/main/public/admin/config.yml): Decap CMS configuration.
+- [`config.js`](https://git.chen.software/sveltia-next-ts/tree/config.js): Your Bleg Starter configuration.
+- [`panda.config.js`](https://git.chen.software/sveltia-next-ts/tree/panda.config.js): PandaCSS configuration.
+- [`next.config.js`](https://git.chen.software/sveltia-next-ts/tree/next.config.js): Next.js custom settings.
+- [`next-seo.config.js`](https://git.chen.software/sveltia-next-ts/tree/next-seo.config.js): SEO configuration for Next.js.
+- [`contentlayer.config.js`](https://git.chen.software/sveltia-next-ts/tree/contentlayer.config.ts): Contentlayer configuration for MDX files.
+- [`public/admin/config.yml`](https://git.chen.software/sveltia-next-ts/tree/public/admin/config.yml): Decap CMS configuration.
 
 ### `next.config.js`:
 
@@ -241,8 +241,8 @@ With these types in place, you can benefit from strong typing and auto-completio
 
 Deploy your own instance of this blog starter project using one of the following providers:
 
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/ositaka/nextjs-blog-tailwind-starter/)
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/import/project?template=https://github.com/ositaka/nextjs-blog-tailwind-starter/)
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/Chen-Software/sveltia-next-ts)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/import/project?template=https://github.com/Chen-Software/sveltia-next-ts)
 
 > [!NOTE]  
 > If you encounter errors related to **`sharp`** during deployment, please try removing the `package-lock.json` file, as this can sometimes resolve issues with Sharp's dependencies.
@@ -282,9 +282,9 @@ Thank you for considering contributing to the project!
 
 ## 🔗 Links
 
-- [Demo](https://nextjs-blog-tailwind-starter.netlify.app/)
-- [Documentation](https://github.com/ositaka/nextjs-blog-tailwind-starter/blob/main/README.md)
-- [GitHub Repo](https://github.com/ositaka/nextjs-blog-tailwind-starter)
+- [Demo](https://sveltia.chen.software/)
+- [Documentation](https://git.chen.software/sveltia-next-ts/tree/README.md)
+- [Git Repo](https://git.chen.software/sveltia-next-ts)
 
 ---
 
