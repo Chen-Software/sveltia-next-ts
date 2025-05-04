@@ -57,7 +57,13 @@ export default function Podcasts() {
 			<section className="md:max-w-[87%] m-auto flex flex-col gap-6 px-4 sm:px-12 mb-32">
 				<CategoryHeader
 					title={"Podcasts"}
-					templateKey={podcasts[0]?.templateKey || ""}
+					templateKey={
+						podcasts[0].templateKey as
+							| "blog"
+							| "inspiration"
+							| "tools"
+							| "podcasts"
+					}
 				/>
 				<div className="grid sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 w-full">
 					{podcasts.map((post) => {

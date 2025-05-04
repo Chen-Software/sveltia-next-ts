@@ -58,7 +58,14 @@ export default function Tools() {
 			<section className="max-w-3xl m-auto flex flex-col gap-6 px-4 sm:px-12 mb-32">
 				<CategoryHeader
 					title="Tools"
-					templateKey={tools[0]?.templateKey || ""}
+					templateKey={
+						tools[0].templateKey as
+							| "blog"
+							| "inspiration"
+							| "tools"
+							| "podcasts"
+							| "tag"
+					}
 				/>
 
 				<div className="flex flex-wrap gap-4 w-full">

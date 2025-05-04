@@ -14,9 +14,48 @@ import {
 	allResources,
 	allTools,
 } from "../../../.contentlayer/generated";
-import { Icon } from "../../../components/Icon";
+import { Icon } from "../../../components/ui/icon";
+import {
+	BookOpenIcon,
+	HeadphonesIcon,
+	BrushIcon,
+	WrenchIcon,
+	BookIcon,
+	LayoutGridIcon,
+	BriefcaseIcon,
+	UsersIcon,
+	MailIcon,
+	TestTube2Icon,
+	GraduationCapIcon,
+	Code2Icon,
+	ImageOffIcon,
+	ZapIcon,
+	TerminalIcon,
+} from "lucide-react";
 import Layout from "../../../components/Layout";
 import { AUTHOR_NAME, SITE_NAME, SITE_URL } from "../../../config";
+import { createElement as h } from "react";
+
+const iconMap = {
+	blog: BookOpenIcon,
+	podcast: HeadphonesIcon,
+	inspiration: BrushIcon,
+	tool: WrenchIcon,
+	resource: BookIcon,
+	apps: LayoutGridIcon,
+	business: BriefcaseIcon,
+	collaborative: UsersIcon,
+	community: UsersIcon,
+	email: MailIcon,
+	example: TestTube2Icon,
+	learning: GraduationCapIcon,
+	"open-source": Code2Icon,
+	placeholder: ImageOffIcon,
+	productivity: ZapIcon,
+	software: TerminalIcon,
+} as const;
+
+type TemplateKey = keyof typeof iconMap;
 
 // Metadata function for SEO
 export async function generateMetadata({
@@ -54,7 +93,7 @@ export async function generateMetadata({
 
 export type Post = Blog | Inspiration | Podcasts | Resources | Tools;
 
-export default function TagPage({ params }: { params: { slug: string } }) {
+const TagPage = ({ params }: { params: { slug: string } }) => {
 	const allPosts = [
 		...allBlogs,
 		...allInspirations,
@@ -97,16 +136,17 @@ export default function TagPage({ params }: { params: { slug: string } }) {
 											</figure>
 										) : (
 											<div className="w-full md:max-w-48 flex justify-center items-center bg-slate-200 dark:bg-slate-800 border border-white dark:border-slate-700 rounded-xl">
-												<Icon
-													name={post.templateKey}
-													className="w-full h-auto  size-12 sm:size-16 opacity-60"
-												/>
+												<Icon className="size-12 sm:size-16 opacity-60">
+													{h(iconMap[post.templateKey as TemplateKey])}
+												</Icon>
 											</div>
 										)}
 
 										<div className="flex flex-col gap-2 w-full">
 											<span className="flex items-center gap-2 text-slate-500 dark:text-slate-400 text-xs font-bold">
-												<Icon name={post.templateKey} className="size-3" />{" "}
+												<Icon className="size-3">
+													{h(iconMap[post.templateKey as TemplateKey])}
+												</Icon>{" "}
 												{post.type}
 											</span>
 											<h2 className="font-bold text-lg text-balance">
@@ -128,7 +168,9 @@ export default function TagPage({ params }: { params: { slug: string } }) {
 			</Layout>
 		</>
 	);
-}
+};
+
+export default TagPage;
 
 export function generateStaticParams() {
 	return [

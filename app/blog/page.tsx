@@ -60,7 +60,16 @@ export default function BlogPage({ params }: { params: { page: string } }) {
 	return (
 		<Layout>
 			<section className="md:max-w-[87%] m-auto flex flex-col gap-6 px-4 sm:px-12 mb-32">
-				<CategoryHeader title="Code Blog" templateKey={blogs[0].templateKey} />
+				<CategoryHeader
+					title="Code Blog"
+					templateKey={
+						blogs[0].templateKey as
+							| "blog"
+							| "inspiration"
+							| "tools"
+							| "podcasts"
+					}
+				/>
 
 				<div className="flex gap-8 items-start">
 					<div className="flex flex-wrap gap-4 w-full">
